@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self';">
+    <title>Student Portfolio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body class="theme-default">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="profile-pic-container">
+                    <img alt="Profile Picture" id="profile-pic">
+                </div>
+                <div class="header-text">
+                    <h1 id="name">Your Name</h1>
+                    <p id="title">Your Title</p>
+                    <div class="social-links">
+                        <a href="#" id="linkedin"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" id="github"><i class="fab fa-github"></i></a>
+                        <a href="#" id="twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" id="email"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-content">
+                <ul class="nav-links">
+                    <li><a href="#about" data-translate="nav_about">About</a></li>
+                    <li><a href="#education" data-translate="nav_education">Education</a></li>
+                    <li><a href="#skills" data-translate="nav_skills">Skills</a></li>
+                    <li><a href="#projects" data-translate="nav_projects">Projects</a></li>
+                    <li><a href="#experience" data-translate="nav_experience">Experience</a></li>
+                    <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <select id="language-selector" class="language-selector">
+                        <option value="fr">🇫🇷 Français</option>
+                        <option value="en">🇬🇧 English</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="about" class="section">
+                <h2 data-translate="section_about">About Me</h2>
+                <div class="section-content">
+                    <p id="about-text">Write a short biography about yourself here. Talk about your interests, goals, and what drives you in your field of study or work. This is your chance to showcase your personality!</p>
+                </div>
+            </section>
+
+            <section id="education" class="section">
+                <h2 data-translate="section_education">Education</h2>
+                <div class="section-content" id="education-list">
+                    <!-- Education items will be added dynamically -->
+                </div>
+            </section>
+
+            <section id="skills" class="section">
+                <h2 data-translate="section_skills">Skills</h2>
+                <div class="section-content">
+                    <div class="skills-container" id="skills-list">
+                        <!-- Skills will be added dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="section">
+                <h2 data-translate="section_projects">Projects</h2>
+                <div class="section-content">
+                    <div class="projects-grid" id="projects-list">
+                        <!-- Projects will be added dynamically -->
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience" class="section">
+                <h2 data-translate="section_experience">Experience</h2>
+                <div class="section-content" id="experience-list">
+                    <!-- Experience items will be added dynamically -->
+                </div>
+            </section>
+
+            <section id="contact" class="section">
+                <h2 data-translate="section_contact">Contact</h2>
+                <div class="section-content">
+                    <div class="contact-info" id="contact-info">
+                        <!-- Contact information will be added dynamically -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year">2023</span> <span id="footer-name">Your Name</span>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="theme-selector">
+        <button id="theme-toggle"><i class="fas fa-paint-brush"></i></button>
+        <div class="theme-options">
+            <div class="theme-option" data-theme="default">Default</div>
+            <div class="theme-option" data-theme="dark">Dark</div>
+            <div class="theme-option" data-theme="light">Light</div>
+            <div class="theme-option" data-theme="blue">Blue</div>
+            <div class="theme-option" data-theme="green">Green</div>
+        </div>
+    </div>
+
+    <script src="js/themes.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 

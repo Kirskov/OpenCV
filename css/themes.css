@@ -1,0 +1,74 @@
+/* Default Theme */
+.theme-default {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --bg-color: #f5f7fa;
+    --text-color: #333;
+    --heading-color: #2c3e50;
+    --card-bg: #fff;
+    --accent-bg: #edf2f7;
+    --border-color: #e2e8f0;
+    --footer-bg: #2c3e50;
+    --footer-text: #ecf0f1;
+}
+
+/* Dark Theme */
+.theme-dark {
+    --primary-color: #6c5ce7;
+    --secondary-color: #2d3436;
+    --accent-color: #00cec9;
+    --bg-color: #1a1a2e;
+    --text-color: #e2e2e2;
+    --heading-color: #fff;
+    --card-bg: #282846;
+    --accent-bg: #16213e;
+    --border-color: #333366;
+    --footer-bg: #0f0f23;
+    --footer-text: #a0a0a0;
+}
+
+/* Light Theme */
+.theme-light {
+    --primary-color: #ff7675;
+    --secondary-color: #6c5ce7;
+    --accent-color: #00b894;
+    --bg-color: #ffffff;
+    --text-color: #3d3d3d;
+    --heading-color: #2d3436;
+    --card-bg: #f9f9f9;
+    --accent-bg: #f0f0f0;
+    --border-color: #dfe6e9;
+    --footer-bg: #ecf0f1;
+    --footer-text: #636e72;
+}
+
+/* Blue Theme */
+.theme-blue {
+    --primary-color: #2980b9;
+    --secondary-color: #3498db;
+    --accent-color: #e67e22;
+    --bg-color: #ecf0f1;
+    --text-color: #2c3e50;
+    --heading-color: #273c75;
+    --card-bg: #ffffff;
+    --accent-bg: #dff9fb;
+    --border-color: #c7ecee;
+    --footer-bg: #273c75;
+    --footer-text: #f5f6fa;
+}
+
+/* Green Theme */
+.theme-green {
+    --primary-color: #27ae60;
+    --secondary-color: #2ecc71;
+    --accent-color: #e74c3c;
+    --bg-color: #f0f9e8;
+    --text-color: #2c3e50;
+    --heading-color: #1e783f;
+    --card-bg: #ffffff;
+    --accent-bg: #eafaf1;
+    --border-color: #c4e6c3;
+    --footer-bg: #1e783f;
+    --footer-text: #f5f6fa;
+} 
