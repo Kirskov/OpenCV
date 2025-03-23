@@ -13,6 +13,36 @@ A modern, responsive portfolio template with multi-language support, theme custo
 - 🔒 Security features (XSS protection, CSP headers, input validation)
 - 🖼️ Automatic fallback for missing project images
 - 💾 Local storage for configuration persistence
+- 🐳 Docker support for easy deployment
+
+## Quick Start with Docker
+
+### Using Docker Compose (Recommended)
+
+1. Clone this repository
+2. Run with Docker Compose:
+   ```bash
+   docker-compose up -d
+   ```
+3. Access your portfolio at http://localhost
+
+### Using Docker Directly
+
+1. Build the Docker image:
+   ```bash
+   docker build -t portfolio .
+   ```
+2. Run the container:
+   ```bash
+   docker run -d -p 80:80 --name portfolio portfolio
+   ```
+3. Access your portfolio at http://localhost
+
+## Manual Setup
+
+1. Clone this repository
+2. Navigate to `js/config.js`
+3. Modify the `defaultConfig` object to customize your portfolio
 
 ## Security Features
 
