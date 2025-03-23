@@ -7,6 +7,7 @@ const translations = {
         nav_projects: "Projects",
         nav_experience: "Experience",
         nav_contact: "Contact",
+        nav_interests: "Interests",
 
         // Section titles
         section_about: "About Me",
@@ -15,6 +16,7 @@ const translations = {
         section_projects: "Projects",
         section_experience: "Experience",
         section_contact: "Contact",
+        section_interests: "Center of Interests",
 
         // Configuration panel
         config_title: "Portfolio Configuration",
@@ -109,6 +111,7 @@ const translations = {
         nav_projects: "Projets",
         nav_experience: "Expérience",
         nav_contact: "Contact",
+        nav_interests: "Centres d'intérêt",
 
         // Section titles
         section_about: "À Propos de Moi",
@@ -117,6 +120,7 @@ const translations = {
         section_projects: "Projets",
         section_experience: "Expérience",
         section_contact: "Contact",
+        section_interests: "Centre d'intérêt",
 
         // Configuration panel
         config_title: "Configuration du Portfolio",

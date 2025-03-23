@@ -7,7 +7,7 @@ A modern, responsive portfolio template with multi-language support, theme custo
 - 🌐 Multi-language support (configurable through JSON)
 - 🎨 Multiple theme options (Default, Dark, Light, Blue, Green)
 - 📱 Fully responsive design
-- 🖼️ Sections for About, Education, Skills, Projects, Experience, and Contact
+- 🖼️ Sections for About, Education, Skills, Projects, Experience, Interests, and Contact
 - 🔄 Easy configuration through a single file
 - 🎯 Language-independent profile picture
 - 🔒 Security features (XSS protection, CSP headers, input validation)
@@ -177,6 +177,16 @@ The configuration is structured as follows:
                     "details": [
                         "Responsibility 1",
                         "Achievement 2"
+                    ]
+                }
+            ],
+            "interests": [
+                {
+                    "title": "Category title",
+                    "items": [
+                        "Interest 1",
+                        "Interest 2",
+                        "Interest 3"
                     ]
                 }
             ]

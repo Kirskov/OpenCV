@@ -80,6 +80,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             "Key responsibility or achievement 2"
                         ]
                     }
+                ],
+                interests: [
+                    {
+                        title: "Sports",
+                        items: ["Basketball", "Football", "Swimming"]
+                    },
+                    {
+                        title: "Travel",
+                        items: ["Italy", "Spain", "France", "USA", "Japan"]
+                    },
+                    {
+                        title: "Hobbies",
+                        items: ["Reading", "Photography", "Cooking", "Music"]
+                    }
                 ]
             },
             fr: {
@@ -144,6 +158,20 @@ document.addEventListener('DOMContentLoaded', function() {
                             "Responsabilité ou réalisation clé 2"
                         ]
                     }
+                ],
+                interests: [
+                    {
+                        title: "Sports",
+                        items: ["Basketball", "Football", "Swimming"]
+                    },
+                    {
+                        title: "Travel",
+                        items: ["Italy", "Spain", "France", "USA", "Japan"]
+                    },
+                    {
+                        title: "Hobbies",
+                        items: ["Reading", "Photography", "Cooking", "Music"]
+                    }
                 ]
             }
         }
@@ -173,6 +201,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!Array.isArray(langContent.projects)) return false;
             if (!Array.isArray(langContent.experience)) return false;
             if (typeof langContent.skills !== 'object') return false;
+            // Interests section is optional
+            if (langContent.interests && !Array.isArray(langContent.interests)) return false;
         }
         
         return true;
@@ -445,6 +475,29 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         expItem.innerHTML = expHTML;
                         experienceList.appendChild(expItem);
+                    }
+                });
+            }
+        }
+        
+        // Interests - using sanitized HTML
+        const interestsList = document.getElementById('interests-list');
+        if (interestsList) {
+            interestsList.innerHTML = '';
+            
+            if (langConfig.interests && langConfig.interests.length > 0) {
+                langConfig.interests.forEach(interest => {
+                    if (interest.title && interest.items && interest.items.length > 0) {
+                        const interestItem = document.createElement('div');
+                        interestItem.className = 'interest-category';
+                        
+                        let interestHTML = `<h3>${sanitizeHTML(interest.title)}</h3>`;
+                        interestHTML += `<ul class="interests-list">
+                            ${interest.items.map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}
+                        </ul>`;
+                        
+                        interestItem.innerHTML = interestHTML;
+                        interestsList.appendChild(interestItem);
                     }
                 });
             }
