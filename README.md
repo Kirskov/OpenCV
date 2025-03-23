@@ -241,16 +241,29 @@ Example:
 ```
 If no image is specified or the image fails to load, the template will automatically use `project-placeholder.jpg` as a fallback.
 
-### Themes
+### Theme Settings
 
-The portfolio includes 5 pre-built themes:
-- Default (Blue)
-- Dark
-- Light
-- Blue
-- Green
+The portfolio includes 10 pre-built themes:
+- Pink/Purple (Default)
+- Modern Dark
+- Light Minimalist
+- Ocean
+- Forest
+- Sunset
+- Nordic
+- Cyberpunk
+- Pastel
+- Monochrome
 
-Users can switch themes using the paint brush icon in the bottom-right corner.
+Users can:
+1. Switch themes using the paint brush icon (🎨) in the bottom-right corner
+2. Set their preferred default theme in the configuration
+3. The selected theme will persist across page reloads
+
+To set a default theme:
+1. Open the configuration panel
+2. Select your preferred theme
+3. The theme will be saved as your default and automatically applied on page load
 
 ## Language Support
 
