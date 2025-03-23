@@ -106,21 +106,21 @@ const translations = {
     fr: {
         // Navigation
         nav_about: "À propos",
-        nav_education: "Formation",
+        nav_education: "Formations",
         nav_skills: "Compétences",
         nav_projects: "Projets",
-        nav_experience: "Expérience",
+        nav_experience: "Expériences",
         nav_contact: "Contact",
-        nav_interests: "Centres d'intérêt",
+        nav_interests: "Centres d'intérêts",
 
         // Section titles
         section_about: "À Propos de Moi",
-        section_education: "Formation",
+        section_education: "Formations",
         section_skills: "Compétences",
         section_projects: "Projets",
-        section_experience: "Expérience",
+        section_experience: "Expériences",
         section_contact: "Contact",
-        section_interests: "Centre d'intérêt",
+        section_interests: "Centres d'intérêts",
 
         // Configuration panel
         config_title: "Configuration du Portfolio",
