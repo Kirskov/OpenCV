@@ -20,17 +20,22 @@ A modern, responsive portfolio template with multi-language support, theme custo
 ### Using Docker Compose (Recommended)
 
 1. Clone this repository
-2. Run with Docker Compose:
+2. Navigate to the docker directory:
+   ```bash
+   cd docker
+   ```
+3. Run with Docker Compose:
    ```bash
    docker-compose up -d
    ```
-3. Access your portfolio at http://localhost
+4. Access your portfolio at http://localhost
 
 ### Using Docker Directly
 
 1. Build the Docker image:
    ```bash
-   docker build -t portfolio .
+   cd docker
+   docker build -t portfolio -f Dockerfile ..
    ```
 2. Run the container:
    ```bash
@@ -225,14 +230,17 @@ portfolio/
 ├── css/
 │   ├── styles.css      # Main styles
 │   └── themes.css      # Theme definitions
+├── docker/            # Docker configuration
+│   ├── Dockerfile     # Docker build file
+│   ├── nginx.conf     # Nginx configuration
+│   ├── .dockerignore  # Docker ignore file
+│   └── docker-compose.yml  # Docker Compose config
 ├── js/
 │   ├── config.js       # Portfolio configuration
 │   ├── translations.js # UI translations
 │   ├── themes.js       # Theme handling
 │   └── main.js         # Main JavaScript
 ├── images/            # Image assets
-│   ├── profile-placeholder.jpg
-│   └── project-placeholder.jpg
 └── index.html         # Main HTML file
 ```
 

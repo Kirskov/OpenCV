@@ -8,7 +8,7 @@ COPY . /usr/share/nginx/html/
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy our custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/
+COPY docker/nginx.conf /etc/nginx/conf.d/
 
 # Expose port 80
 EXPOSE 80
