@@ -14,6 +14,7 @@ A modern, responsive portfolio template with multi-language support, theme custo
 - 🖼️ Automatic fallback for missing project images
 - 💾 Local storage for configuration persistence
 - 🐳 Docker support for easy deployment
+- 🔒 Automated security scanning
 
 ## Quick Start with Docker
 
@@ -51,11 +52,55 @@ A modern, responsive portfolio template with multi-language support, theme custo
 
 ## Security Features
 
-- Content Security Policy (CSP) headers implemented
-- XSS protection through input sanitization
-- Secure external resource loading with integrity checks
-- Input validation for configuration data
-- Safe HTML rendering with sanitization
+### Automated Security Scanning
+
+This project includes multiple security scanning tools:
+
+1. **Trivy Scanner**: Scans Docker images for vulnerabilities
+2. **Docker Scout**: Analyzes Docker images for security issues
+3. **Snyk**: Checks for vulnerabilities in dependencies and Docker images
+4. **Pre-commit Hooks**: Local security checks before committing code
+
+### Setting Up Security Scanning
+
+1. **GitHub Actions** (Automated)
+   - Security scans run automatically on:
+     - Push to main/docker branches
+     - Pull requests to main
+     - Weekly schedule
+   - View results in the "Security" tab of your repository
+
+2. **Local Development** (Pre-commit hooks)
+   ```bash
+   # Install pre-commit
+   pip install pre-commit
+
+   # Install the pre-commit hooks
+   pre-commit install
+
+   # Run all checks manually
+   pre-commit run --all-files
+   ```
+
+3. **Manual Docker Scanning**
+   ```bash
+   # Using Trivy
+   trivy image portfolio
+
+   # Using Docker Scout
+   docker scout cves portfolio
+
+   # Using Snyk (requires account)
+   snyk container test portfolio
+   ```
+
+### Security Best Practices
+
+1. Keep the base Nginx image updated
+2. Regularly run security scans
+3. Review and update dependencies
+4. Monitor GitHub Security alerts
+5. Use environment variables for sensitive data
 
 ## Configuration Guide
 
