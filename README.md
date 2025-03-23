@@ -54,12 +54,10 @@ A modern, responsive portfolio template with multi-language support, theme custo
 
 ### Automated Security Scanning
 
-This project includes multiple security scanning tools:
+This project includes security scanning tools:
 
-1. **Trivy Scanner**: Scans Docker images for vulnerabilities
-2. **Docker Scout**: Analyzes Docker images for security issues
-3. **Snyk**: Checks for vulnerabilities in dependencies and Docker images
-4. **Pre-commit Hooks**: Local security checks before committing code
+1. **Trivy Scanner**: Comprehensive vulnerability scanner for containers
+2. **Pre-commit Hooks**: Local security checks before committing code
 
 ### Setting Up Security Scanning
 
@@ -68,7 +66,7 @@ This project includes multiple security scanning tools:
      - Push to main/docker branches
      - Pull requests to main
      - Weekly schedule
-   - View results in the "Security" tab of your repository
+   - View results in the "Actions" tab of your repository
 
 2. **Local Development** (Pre-commit hooks)
    ```bash
@@ -84,14 +82,11 @@ This project includes multiple security scanning tools:
 
 3. **Manual Docker Scanning**
    ```bash
+   # Build the image
+   docker build -t portfolio -f docker/Dockerfile .
+
    # Using Trivy
    trivy image portfolio
-
-   # Using Docker Scout
-   docker scout cves portfolio
-
-   # Using Snyk (requires account)
-   snyk container test portfolio
    ```
 
 ### Security Best Practices
