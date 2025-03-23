@@ -378,57 +378,99 @@ footer {
 }
 
 /* Theme Selector */
-.theme-selector {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    z-index: 999;
-}
-
 #theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: var(--primary-color);
-    color: #fff;
-    border: none;
-    font-size: 1.5rem;
+    background: var(--card-bg);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: var(--card-shadow);
 }
 
 #theme-toggle:hover {
-    background-color: var(--secondary-color);
     transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.theme-options {
-    position: absolute;
-    bottom: 60px;
-    right: 0;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    width: 120px;
-    overflow: hidden;
-    display: none;
-}
-
-.theme-options.show {
-    display: block;
+.theme-menu {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: var(--card-shadow);
+    z-index: 999;
+    max-height: 400px;
+    overflow-y: auto;
+    width: 200px;
 }
 
 .theme-option {
     padding: 10px 15px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
 }
 
 .theme-option:hover {
-    background-color: #f0f0f0;
+    background: var(--section-bg);
+    transform: translateX(5px);
+}
+
+/* Scrollbar Styles for Theme Menu */
+.theme-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.theme-menu::-webkit-scrollbar-track {
+    background: var(--bg-color);
+    border-radius: 3px;
+}
+
+.theme-menu::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+/* Theme Transition */
+* {
+    transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+/* Responsive Theme Selector */
+@media (max-width: 768px) {
+    #theme-toggle {
+        bottom: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .theme-menu {
+        bottom: 60px;
+        right: 10px;
+        width: 180px;
+    }
 }
 
 /* Configuration Panel */

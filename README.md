@@ -13,14 +13,89 @@ A modern, responsive portfolio template with multi-language support, theme custo
 - 🔒 Security features (XSS protection, CSP headers, input validation)
 - 🖼️ Automatic fallback for missing project images
 - 💾 Local storage for configuration persistence
+- 🐳 Docker support for easy deployment
+- 🔒 Automated security scanning
+
+## Quick Start with Docker
+
+### Using Docker Compose (Recommended)
+
+1. Clone this repository
+2. Navigate to the docker directory:
+   ```bash
+   cd docker
+   ```
+3. Run with Docker Compose:
+   ```bash
+   docker-compose up -d
+   ```
+4. Access your portfolio at http://localhost
+
+### Using Docker Directly
+
+1. Build the Docker image:
+   ```bash
+   cd docker
+   docker build -t portfolio -f Dockerfile ..
+   ```
+2. Run the container:
+   ```bash
+   docker run -d -p 80:80 --name portfolio portfolio
+   ```
+3. Access your portfolio at http://localhost
+
+## Manual Setup
+
+1. Clone this repository
+2. Navigate to `js/config.js`
+3. Modify the `defaultConfig` object to customize your portfolio
 
 ## Security Features
 
-- Content Security Policy (CSP) headers implemented
-- XSS protection through input sanitization
-- Secure external resource loading with integrity checks
-- Input validation for configuration data
-- Safe HTML rendering with sanitization
+### Automated Security Scanning
+
+This project includes security scanning tools:
+
+1. **Trivy Scanner**: Comprehensive vulnerability scanner for containers
+2. **Pre-commit Hooks**: Local security checks before committing code
+
+### Setting Up Security Scanning
+
+1. **GitHub Actions** (Automated)
+   - Security scans run automatically on:
+     - Push to main/docker branches
+     - Pull requests to main
+     - Weekly schedule
+   - View results in the "Actions" tab of your repository
+
+2. **Local Development** (Pre-commit hooks)
+   ```bash
+   # Install pre-commit
+   pip install pre-commit
+
+   # Install the pre-commit hooks
+   pre-commit install
+
+   # Run all checks manually
+   pre-commit run --all-files
+   ```
+
+3. **Manual Docker Scanning**
+   ```bash
+   # Build the image
+   docker build -t portfolio -f docker/Dockerfile .
+
+   # Using Trivy
+   trivy image portfolio
+   ```
+
+### Security Best Practices
+
+1. Keep the base Nginx image updated
+2. Regularly run security scans
+3. Review and update dependencies
+4. Monitor GitHub Security alerts
+5. Use environment variables for sensitive data
 
 ## Configuration Guide
 
@@ -166,16 +241,29 @@ Example:
 ```
 If no image is specified or the image fails to load, the template will automatically use `project-placeholder.jpg` as a fallback.
 
-### Themes
+### Theme Settings
 
-The portfolio includes 5 pre-built themes:
-- Default (Blue)
-- Dark
-- Light
-- Blue
-- Green
+The portfolio includes 10 pre-built themes:
+- Pink/Purple (Default)
+- Modern Dark
+- Light Minimalist
+- Ocean
+- Forest
+- Sunset
+- Nordic
+- Cyberpunk
+- Pastel
+- Monochrome
 
-Users can switch themes using the paint brush icon in the bottom-right corner.
+Users can:
+1. Switch themes using the paint brush icon (🎨) in the bottom-right corner
+2. Set their preferred default theme in the configuration
+3. The selected theme will persist across page reloads
+
+To set a default theme:
+1. Open the configuration panel
+2. Select your preferred theme
+3. The theme will be saved as your default and automatically applied on page load
 
 ## Language Support
 
@@ -195,14 +283,17 @@ portfolio/
 ├── css/
 │   ├── styles.css      # Main styles
 │   └── themes.css      # Theme definitions
+├── docker/            # Docker configuration
+│   ├── Dockerfile     # Docker build file
+│   ├── nginx.conf     # Nginx configuration
+│   ├── .dockerignore  # Docker ignore file
+│   └── docker-compose.yml  # Docker Compose config
 ├── js/
 │   ├── config.js       # Portfolio configuration
 │   ├── translations.js # UI translations
 │   ├── themes.js       # Theme handling
 │   └── main.js         # Main JavaScript
 ├── images/            # Image assets
-│   ├── profile-placeholder.jpg
-│   └── project-placeholder.jpg
 └── index.html         # Main HTML file
 ```
 

@@ -12,6 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
             primary: 'en',  // Primary language of the CV
             translations: ['fr']  // Additional languages available
         },
+        themeSettings: {
+            default: 'default',  // Default theme to use
+            available: ['default', 'dark', 'light', 'ocean', 'forest', 'sunset', 'nordic', 'cyberpunk', 'pastel', 'monochrome']
+        },
         profilePic: "images/profile-placeholder.jpg",  // Moved to top level
         content: {
             en: {
