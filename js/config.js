@@ -148,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     };
-    
     // Add validation function
     function validateConfig(config) {
         // Basic structure validation
@@ -200,6 +199,39 @@ document.addEventListener('DOMContentLoaded', function() {
         const div = document.createElement('div');
         div.textContent = str;
         return div.innerHTML;
+    }
+    
+    // Function to populate language selector based on config
+    function populateLanguageSelector(config) {
+        if (!languageSelector) return;
+        
+        // Clear current options
+        languageSelector.innerHTML = '';
+        
+        // Add primary language
+        const primaryOption = document.createElement('option');
+        primaryOption.value = config.languageSettings.primary;
+        primaryOption.textContent = getLanguageName(config.languageSettings.primary);
+        languageSelector.appendChild(primaryOption);
+        
+        // Add translation languages
+        config.languageSettings.translations.forEach(lang => {
+            const option = document.createElement('option');
+            option.value = lang;
+            option.textContent = getLanguageName(lang);
+            languageSelector.appendChild(option);
+        });
+        
+        // Set current language
+        const currentLang = localStorage.getItem('portfolio-language') || config.languageSettings.primary;
+        languageSelector.value = currentLang;
+        
+        // Hide selector if only one language is available
+        if (config.languageSettings.translations.length === 0) {
+            languageSelector.style.display = 'none';
+        } else {
+            languageSelector.style.display = 'block';
+        }
     }
     
     // Apply configuration to the DOM
@@ -440,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize the page
     const config = loadConfiguration();
+    populateLanguageSelector(config);
     const savedLanguage = localStorage.getItem('portfolio-language') || config.languageSettings.primary;
     languageSelector.value = savedLanguage;
     setLanguage(savedLanguage);
