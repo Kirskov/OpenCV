@@ -16,14 +16,14 @@ document.addEventListener('DOMContentLoaded', function() {
             default: 'default',  // Default theme to use
             available: ['default', 'dark', 'light', 'ocean', 'forest', 'sunset', 'nordic', 'cyberpunk', 'pastel', 'monochrome']
         },
-        showProfilePic: false,  // Whether to show the profile picture
+        showProfilePic: true,  // Whether to show the profile picture
         profilePic: "images/profile-placeholder.jpg",  // Profile picture path
         content: {
             en: {
                 personal: {
                     name: "Your Name",
                     title: "Your Professional Title",
-                    about: "A brief description about yourself and your professional goals.",
+                    about: "👋 Welcome to my portfolio! Here you'll find information about my professional journey, skills, and projects. Feel free to explore the different sections using the navigation menu above. You can also switch languages using the dropdown in the top-right corner, and change the site's theme using the paint brush icon at the bottom-right. Don't hesitate to contact me through any of the social links above!",
                     email: "your.email@example.com",
                     phone: "Your Phone Number",
                     location: "Your Location",
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 personal: {
                     name: "Votre Nom",
                     title: "Votre Titre Professionnel",
-                    about: "Une brève description de vous-même et de vos objectifs professionnels.",
+                    about: "👋 Bienvenue sur mon portfolio ! Vous y trouverez des informations sur mon parcours professionnel, mes compétences et mes projets. N'hésitez pas à explorer les différentes sections en utilisant le menu de navigation ci-dessus. Vous pouvez également changer de langue en utilisant le menu déroulant en haut à droite, et modifier le thème du site avec l'icône du pinceau en bas à droite. N'hésitez pas à me contacter via les liens sociaux ci-dessus !",
                     email: "votre.email@example.com",
                     phone: "Votre Numéro de Téléphone",
                     location: "Votre Localisation",
@@ -544,7 +544,7 @@ document.addEventListener('DOMContentLoaded', function() {
         applyConfiguration(loadConfiguration());
     });
     
-    // Helper function to get language name
+    // Language helper function
     function getLanguageName(code) {
         const languages = {
             af: "Afrikaans", sq: "Albanian", ar: "Arabic", hy: "Armenian", eu: "Basque",
@@ -565,6 +565,9 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         return languages[code] || code;
     }
+
+    // Make sure the function is available globally
+    window.getLanguageName = getLanguageName;
 
     // Helper function to get language flag emoji
     function getLanguageFlag(code) {

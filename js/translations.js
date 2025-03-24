@@ -1,5 +1,6 @@
 const translations = {
     en: {
+        language_name: "English",
         // Navigation
         nav_about: "About",
         nav_education: "Education",
@@ -8,6 +9,20 @@ const translations = {
         nav_experience: "Experience",
         nav_contact: "Contact",
         nav_interests: "Interests",
+
+        // Tooltips
+        tooltip_about: "Learn more about me and my background",
+        tooltip_education: "View my educational background and qualifications",
+        tooltip_skills: "See my technical and professional skills",
+        tooltip_projects: "Browse my portfolio projects",
+        tooltip_experience: "Check my work experience",
+        tooltip_interests: "Discover my personal interests and hobbies",
+        tooltip_contact: "Get in touch with me",
+        tooltip_linkedin: "Connect with me on LinkedIn",
+        tooltip_github: "Check out my code on GitHub",
+        tooltip_twitter: "Follow me on Twitter",
+        tooltip_email: "Send me an email",
+        tooltip_theme: "Change Theme",
 
         // Section titles
         section_about: "About Me",
@@ -104,6 +119,7 @@ const translations = {
         config_contact_location_placeholder: "Your location"
     },
     fr: {
+        language_name: "Français",
         // Navigation
         nav_about: "À propos",
         nav_education: "Formations",
@@ -112,6 +128,20 @@ const translations = {
         nav_experience: "Expériences",
         nav_contact: "Contact",
         nav_interests: "Centres d'intérêts",
+
+        // Tooltips
+        tooltip_about: "En savoir plus sur moi et mon parcours",
+        tooltip_education: "Voir mon parcours académique et mes qualifications",
+        tooltip_skills: "Découvrir mes compétences techniques et professionnelles",
+        tooltip_projects: "Parcourir mes projets",
+        tooltip_experience: "Consulter mon expérience professionnelle",
+        tooltip_interests: "Découvrir mes centres d'intérêt",
+        tooltip_contact: "Me contacter",
+        tooltip_linkedin: "Me suivre sur LinkedIn",
+        tooltip_github: "Voir mon code sur GitHub",
+        tooltip_twitter: "Me suivre sur Twitter",
+        tooltip_email: "M'envoyer un email",
+        tooltip_theme: "Changer le Thème",
 
         // Section titles
         section_about: "À Propos de Moi",

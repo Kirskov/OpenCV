@@ -4,104 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com; connect-src 'self';">
+    <meta name="description" content="Student portfolio showcasing education, skills, projects, and experience">
     <title>Student Portfolio</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="fontawesome-free-web/css/all.min.css">
 </head>
 <body data-theme="default">
-    <header>
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
         <div class="container">
             <div class="header-content">
                 <div class="profile-pic-container">
-                    <img alt="Profile Picture" id="profile-pic">
+                    <img alt="Profile Picture" id="profile-pic" role="img" width="150" height="150">
                 </div>
                 <div class="header-text">
                     <h1 id="name">Your Name</h1>
                     <p id="title">Your Title</p>
-                    <div class="social-links">
-                        <a href="#" id="linkedin"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" id="github"><i class="fab fa-github"></i></a>
-                        <a href="#" id="twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" id="email"><i class="fas fa-envelope"></i></a>
+                    <div class="social-links" role="list" aria-label="Social media links">
+                        <a href="#" id="linkedin" data-tooltip="tooltip_linkedin" role="listitem" aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="#" id="github" data-tooltip="tooltip_github" role="listitem" aria-label="GitHub Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="#" id="twitter" data-tooltip="tooltip_twitter" role="listitem" aria-label="Twitter Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" id="email" data-tooltip="tooltip_email" role="listitem" aria-label="Email Contact"><i class="fas fa-envelope" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav class="main-nav">
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav-content">
-                <ul class="nav-links">
-                    <li><a href="#about" data-translate="nav_about">About</a></li>
-                    <li><a href="#education" data-translate="nav_education">Education</a></li>
-                    <li><a href="#skills" data-translate="nav_skills">Skills</a></li>
-                    <li><a href="#projects" data-translate="nav_projects">Projects</a></li>
-                    <li><a href="#experience" data-translate="nav_experience">Experience</a></li>
-                    <li><a href="#interests" data-translate="nav_interests">Interests</a></li>
-                    <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
+                <ul class="nav-links" role="menubar" aria-label="Main menu">
+                    <li role="none"><a href="#about" data-translate="nav_about" data-tooltip="tooltip_about" role="menuitem" aria-current="false">About</a></li>
+                    <li role="none"><a href="#education" data-translate="nav_education" data-tooltip="tooltip_education" role="menuitem" aria-current="false">Education</a></li>
+                    <li role="none"><a href="#skills" data-translate="nav_skills" data-tooltip="tooltip_skills" role="menuitem" aria-current="false">Skills</a></li>
+                    <li role="none"><a href="#projects" data-translate="nav_projects" data-tooltip="tooltip_projects" role="menuitem" aria-current="false">Projects</a></li>
+                    <li role="none"><a href="#experience" data-translate="nav_experience" data-tooltip="tooltip_experience" role="menuitem" aria-current="false">Experience</a></li>
+                    <li role="none"><a href="#interests" data-translate="nav_interests" data-tooltip="tooltip_interests" role="menuitem" aria-current="false">Interests</a></li>
+                    <li role="none"><a href="#contact" data-translate="nav_contact" data-tooltip="tooltip_contact" role="menuitem" aria-current="false">Contact</a></li>
                 </ul>
                 <div class="nav-controls">
-                    <select id="language-selector" class="language-selector">
-                    </select>
+                    <div class="language-selector-container">
+                        <label for="language-selector" class="visually-hidden">Select language</label>
+                        <select id="language-selector" class="language-selector" aria-label="Select language" aria-describedby="language-description">
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                        <span id="language-description" class="visually-hidden">Select your preferred language for the website content</span>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main>
+    <main id="main-content" role="main">
         <div class="container">
-            <section id="about" class="section">
-                <h2 data-translate="section_about">About Me</h2>
+            <section id="about" class="section" aria-labelledby="about-heading">
+                <h2 id="about-heading" data-translate="section_about">About Me</h2>
                 <div class="section-content">
                     <p id="about-text">Write a short biography about yourself here. Talk about your interests, goals, and what drives you in your field of study or work. This is your chance to showcase your personality!</p>
                 </div>
             </section>
 
-            <section id="education" class="section">
-                <h2 data-translate="section_education">Education</h2>
-                <div class="section-content" id="education-list">
+            <section id="education" class="section" aria-labelledby="education-heading">
+                <h2 id="education-heading" data-translate="section_education">Education</h2>
+                <div class="section-content" id="education-list" role="list">
                     <!-- Education items will be added dynamically -->
                 </div>
             </section>
 
-            <section id="skills" class="section">
-                <h2 data-translate="section_skills">Skills</h2>
+            <section id="skills" class="section" aria-labelledby="skills-heading">
+                <h2 id="skills-heading" data-translate="section_skills">Skills</h2>
                 <div class="section-content">
-                    <div class="skills-container" id="skills-list">
+                    <div class="skills-container" id="skills-list" role="list">
                         <!-- Skills will be added dynamically -->
                     </div>
                 </div>
             </section>
 
-            <section id="projects" class="section">
-                <h2 data-translate="section_projects">Projects</h2>
+            <section id="projects" class="section" aria-labelledby="projects-heading">
+                <h2 id="projects-heading" data-translate="section_projects">Projects</h2>
                 <div class="section-content">
-                    <div class="projects-grid" id="projects-list">
+                    <div class="projects-grid" id="projects-list" role="list">
                         <!-- Projects will be added dynamically -->
                     </div>
                 </div>
             </section>
 
-            <section id="experience" class="section">
-                <h2 data-translate="section_experience">Experience</h2>
-                <div class="section-content" id="experience-list">
+            <section id="experience" class="section" aria-labelledby="experience-heading">
+                <h2 id="experience-heading" data-translate="section_experience">Experience</h2>
+                <div class="section-content" id="experience-list" role="list">
                     <!-- Experience items will be added dynamically -->
                 </div>
             </section>
 
-            <section id="interests" class="section">
-                <h2 data-translate="section_interests">Center of Interests</h2>
-                <div class="section-content" id="interests-list">
+            <section id="interests" class="section" aria-labelledby="interests-heading">
+                <h2 id="interests-heading" data-translate="section_interests">Center of Interests</h2>
+                <div class="section-content" id="interests-list" role="list">
                     <!-- Interests will be added dynamically -->
                 </div>
             </section>
 
-            <section id="contact" class="section">
-                <h2 data-translate="section_contact">Contact</h2>
+            <section id="contact" class="section" aria-labelledby="contact-heading">
+                <h2 id="contact-heading" data-translate="section_contact">Contact</h2>
                 <div class="section-content">
-                    <div class="contact-info" id="contact-info">
+                    <div class="contact-info" id="contact-info" role="list">
                         <!-- Contact information will be added dynamically -->
                     </div>
                 </div>
@@ -109,13 +118,15 @@
         </div>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; <span id="current-year">2023</span> <span id="footer-name">Your Name</span>. All rights reserved.</p>
         </div>
     </footer>
 
-    <button id="theme-toggle">🎨</button>
+    <button id="theme-toggle" aria-label="Toggle theme" type="button">
+        <i class="fas fa-palette" aria-hidden="true"></i>
+    </button>
 
     <script src="js/themes.js"></script>
     <script src="js/translations.js"></script>
