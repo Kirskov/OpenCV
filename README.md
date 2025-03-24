@@ -115,7 +115,12 @@ The configuration is structured as follows:
         "primary": "en",          // Your primary language code
         "translations": ["fr"]    // Additional language codes for translations
     },
-    "profilePic": "images/profile-placeholder.jpg",  // Language-independent profile picture
+    "themeSettings": {
+        "default": "default",     // Default theme to use
+        "available": ["default", "dark", "light", "ocean", "forest"]
+    },
+    "showProfilePic": true,      // Whether to show the profile picture (true/false)
+    "profilePic": "images/profile-placeholder.jpg",  // Profile picture path
     "content": {
         "en": {  // Primary language content
             "personal": {
@@ -228,100 +233,27 @@ Example:
 
 ### Profile Picture
 
-1. Add your profile picture to the `images` directory
-2. Update the `profilePic` path in the top-level configuration (language-independent):
-```javascript
-{
-    "profilePic": "images/your-profile-pic.jpg",
-    // ... rest of the configuration
-}
-```
+The profile picture can be configured in two ways:
+
+1. **Visibility Control**:
+   - Use `showProfilePic` in the configuration to show/hide the profile picture:
+   ```javascript
+   {
+       "showProfilePic": false,  // Set to false to hide the profile picture
+       "profilePic": "images/your-profile-pic.jpg"
+   }
+   ```
+
+2. **Image Path**:
+   - Add your profile picture to the `images` directory
+   - Update the `profilePic` path in the configuration:
+   ```javascript
+   {
+       "showProfilePic": true,   // Make sure this is true to show the picture
+       "profilePic": "images/your-profile-pic.jpg"
+   }
+   ```
 
 ### Project Images
 
 1. Add project images to the `images` directory
-2. Reference them in your project configurations:
-```javascript
-"projects": [
-    {
-        "image": "images/project1.jpg",
-        // ... other project details
-    }
-]
-```
-If no image is specified or the image fails to load, the template will automatically use `project-placeholder.jpg` as a fallback.
-
-### Theme Settings
-
-The portfolio includes 10 pre-built themes:
-- Pink/Purple (Default)
-- Modern Dark
-- Light Minimalist
-- Ocean
-- Forest
-- Sunset
-- Nordic
-- Cyberpunk
-- Pastel
-- Monochrome
-
-Users can:
-1. Switch themes using the paint brush icon (🎨) in the bottom-right corner
-2. Set their preferred default theme in the configuration
-3. The selected theme will persist across page reloads
-
-To set a default theme:
-1. Open the configuration panel
-2. Select your preferred theme
-3. The theme will be saved as your default and automatically applied on page load
-
-## Language Support
-
-The template supports any language code following the ISO 639-1 standard. Some examples:
-- `en` (English)
-- `fr` (French)
-- `es` (Spanish)
-- `de` (German)
-- `it` (Italian)
-- `zh` (Chinese)
-- `ja` (Japanese)
-
-## File Structure
-
-```
-portfolio/
-├── css/
-│   ├── styles.css      # Main styles
-│   └── themes.css      # Theme definitions
-├── docker/            # Docker configuration
-│   ├── Dockerfile     # Docker build file
-│   ├── nginx.conf     # Nginx configuration
-│   ├── .dockerignore  # Docker ignore file
-│   └── docker-compose.yml  # Docker Compose config
-├── js/
-│   ├── config.js       # Portfolio configuration
-│   ├── translations.js # UI translations
-│   ├── themes.js       # Theme handling
-│   └── main.js         # Main JavaScript
-├── images/            # Image assets
-└── index.html         # Main HTML file
-```
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-
-## Security Considerations
-
-- All user input is sanitized to prevent XSS attacks
-- Content Security Policy (CSP) headers are implemented
-- External resources are loaded with integrity checks
-- Configuration data is validated before use
-- Local storage data is cleared on page load to prevent stale data
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 

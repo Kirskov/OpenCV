@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
             default: 'default',  // Default theme to use
             available: ['default', 'dark', 'light', 'ocean', 'forest', 'sunset', 'nordic', 'cyberpunk', 'pastel', 'monochrome']
         },
-        profilePic: "images/profile-placeholder.jpg",  // Moved to top level
+        showProfilePic: false,  // Whether to show the profile picture
+        profilePic: "images/profile-placeholder.jpg",  // Profile picture path
         content: {
             en: {
                 personal: {
@@ -39,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     phone: 'Your Phone Number',
                     location: 'Your Location'
                 },
-                education: [
+               education: [
                     {
                         period: "YYYY-YYYY",
                         degree: "Degree Name",
@@ -281,22 +282,27 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Profile image handling - now using top-level config
         const profilePic = document.getElementById('profile-pic');
-        if (profilePic) {
-            // Set default image first
-            profilePic.src = config.profilePic;
-            profilePic.style.display = 'block';
-            
-            // Try to load custom image if specified
-            if (config.profilePic && config.profilePic !== 'images/profile-placeholder.jpg') {
-                const img = new Image();
-                img.onload = function() {
-                    profilePic.src = config.profilePic;
-                };
-                img.onerror = function() {
-                    console.log('Failed to load custom profile image, using default');
-                    profilePic.src = 'images/profile-placeholder.jpg';
-                };
-                img.src = config.profilePic;
+        const profilePicContainer = document.querySelector('.profile-pic-container');
+        if (profilePic && profilePicContainer) {
+            if (config.showProfilePic) {
+                profilePicContainer.style.display = 'block';
+                // Set default image first
+                profilePic.src = config.profilePic;
+                
+                // Try to load custom image if specified
+                if (config.profilePic && config.profilePic !== 'images/profile-placeholder.jpg') {
+                    const img = new Image();
+                    img.onload = function() {
+                        profilePic.src = config.profilePic;
+                    };
+                    img.onerror = function() {
+                        console.log('Failed to load custom profile image, using default');
+                        profilePic.src = 'images/profile-placeholder.jpg';
+                    };
+                    img.src = config.profilePic;
+                }
+            } else {
+                profilePicContainer.style.display = 'none';
             }
         }
         
