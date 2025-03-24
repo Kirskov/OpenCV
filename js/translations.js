@@ -31,7 +31,7 @@ const translations = {
         section_projects: "Projects",
         section_experience: "Experience",
         section_contact: "Contact",
-        section_interests: "Center of Interests",
+        section_interests: "Interests",
 
         // Configuration panel
         config_title: "Portfolio Configuration",
