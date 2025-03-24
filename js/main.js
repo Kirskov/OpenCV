@@ -37,29 +37,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('.section');
     const navLinks = document.querySelectorAll('.nav-links a');
     
-    function updateActiveSection() {
-        const scrollPosition = window.scrollY + 100;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                const sectionId = section.getAttribute('id');
-                
-                // Update ARIA current state
+    // Add hover listeners to sections
+    sections.forEach(section => {
+        section.addEventListener('mouseenter', function() {
+            const sectionId = this.id;
+            navLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === `#${sectionId}`;
+                link.setAttribute('aria-current', isActive ? 'true' : 'false');
+                link.classList.toggle('active', isActive);
+            });
+        });
+    });
+
+    // Special case for top of page (About section)
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+        // Highlight About section by default when at top of page
+        window.addEventListener('scroll', function() {
+            if (window.scrollY < 100) {
                 navLinks.forEach(link => {
-                    const isActive = link.getAttribute('href') === `#${sectionId}`;
+                    const isActive = link.getAttribute('href') === '#about';
                     link.setAttribute('aria-current', isActive ? 'true' : 'false');
                     link.classList.toggle('active', isActive);
                 });
             }
         });
     }
-
-    // Update active section on scroll
-    window.addEventListener('scroll', updateActiveSection);
-    updateActiveSection(); // Initial check
 
     // Smooth scrolling with keyboard support
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -2,7 +2,7 @@ const translations = {
     en: {
         language_name: "English",
         // Navigation
-        nav_about: "About",
+        nav_about: "About Me",
         nav_education: "Education",
         nav_skills: "Skills",
         nav_projects: "Projects",
