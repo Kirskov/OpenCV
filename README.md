@@ -2,6 +2,8 @@
 
 A modern, responsive, and accessible portfolio website built with HTML, CSS, and JavaScript.
 
+🔗 [Live Demo](https://open-cv-nine.vercel.app/)
+
 ## Features
 
 - 🌐 Multi-language support (English and French)
