@@ -191,7 +191,7 @@ function updateTranslations(lang) {
     // Update all elements with data-translate attribute
     document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.getAttribute('data-translate');
-        if (translations[lang] && translations[lang][key]) {
+        if (translations[lang]?.[key]) {
             element.textContent = translations[lang][key];
         }
     });
@@ -199,7 +199,7 @@ function updateTranslations(lang) {
     // Update tooltips for elements with data-tooltip attribute
     document.querySelectorAll('[data-tooltip]').forEach(element => {
         const key = element.getAttribute('data-tooltip');
-        if (translations[lang] && translations[lang][key]) {
+        if (translations[lang]?.[key]) {
             element.setAttribute('data-tooltip-text', translations[lang][key]);
         }
     });

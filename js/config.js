@@ -177,36 +177,52 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     };
-    // Add validation function
+    // Validation helper functions
+    function validateBasicStructure(config) {
+        return config && 
+               typeof config === 'object' && 
+               config.languageSettings && 
+               typeof config.languageSettings === 'object' && 
+               config.content && 
+               typeof config.content === 'object';
+    }
+
+    function validateLanguageSettings(languageSettings) {
+        return languageSettings.primary && 
+               typeof languageSettings.primary === 'string' && 
+               Array.isArray(languageSettings.translations);
+    }
+
+    function validateRequiredSections(langContent) {
+        return langContent.personal && 
+               typeof langContent.personal === 'object' && 
+               langContent.social && 
+               typeof langContent.social === 'object' && 
+               langContent.contact && 
+               typeof langContent.contact === 'object' && 
+               Array.isArray(langContent.education) && 
+               Array.isArray(langContent.projects) && 
+               Array.isArray(langContent.experience) && 
+               typeof langContent.skills === 'object';
+    }
+
+    function validateOptionalSections(langContent) {
+        return !langContent.interests || Array.isArray(langContent.interests);
+    }
+
+    // Main validation function
     function validateConfig(config) {
-        // Basic structure validation
-        if (!config || typeof config !== 'object') return false;
-        if (!config.languageSettings || typeof config.languageSettings !== 'object') return false;
-        if (!config.content || typeof config.content !== 'object') return false;
+        if (!validateBasicStructure(config)) return false;
+        if (!validateLanguageSettings(config.languageSettings)) return false;
         
-        // Language settings validation
-        if (!config.languageSettings.primary || typeof config.languageSettings.primary !== 'string') return false;
-        if (!Array.isArray(config.languageSettings.translations)) return false;
-        
-        // Content validation for each language
-        for (const lang of [config.languageSettings.primary, ...config.languageSettings.translations]) {
-            if (!config.content[lang] || typeof config.content[lang] !== 'object') return false;
-            
+        const languages = [config.languageSettings.primary, ...config.languageSettings.translations];
+        return languages.every(lang => {
             const langContent = config.content[lang];
-            
-            // Required sections validation
-            if (!langContent.personal || typeof langContent.personal !== 'object') return false;
-            if (!langContent.social || typeof langContent.social !== 'object') return false;
-            if (!langContent.contact || typeof langContent.contact !== 'object') return false;
-            if (!Array.isArray(langContent.education)) return false;
-            if (!Array.isArray(langContent.projects)) return false;
-            if (!Array.isArray(langContent.experience)) return false;
-            if (typeof langContent.skills !== 'object') return false;
-            // Interests section is optional
-            if (langContent.interests && !Array.isArray(langContent.interests)) return false;
-        }
-        
-        return true;
+            return langContent && 
+                   typeof langContent === 'object' && 
+                   validateRequiredSections(langContent) && 
+                   validateOptionalSections(langContent);
+        });
     }
     
     // Update loadConfiguration function
@@ -265,53 +281,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Apply configuration to the DOM
-    function applyConfiguration(config) {
-        const currentLang = localStorage.getItem('portfolio-language') || config.languageSettings.primary;
-        const langConfig = config.content[currentLang];
-        
-        if (!langConfig) {
-            console.error(`No content available for language: ${currentLang}`);
-            return;
-        }
-        
-        // Personal info - using textContent for text-only content
+    // Helper functions for configuration application
+    function updatePersonalInfo(langConfig) {
         if (langConfig.personal.name) document.getElementById('name').textContent = langConfig.personal.name;
         if (langConfig.personal.title) document.getElementById('title').textContent = langConfig.personal.title;
         if (langConfig.personal.about) document.getElementById('about-text').textContent = langConfig.personal.about;
-        
-        // Profile image handling - now using top-level config
+        if (langConfig.personal.name) document.getElementById('footer-name').textContent = langConfig.personal.name;
+    }
+
+    function updateProfilePic(config) {
         const profilePic = document.getElementById('profile-pic');
         const profilePicContainer = document.querySelector('.profile-pic-container');
         if (profilePic && profilePicContainer) {
             if (config.showProfilePic) {
                 profilePicContainer.style.display = 'block';
-                // Set default image first
-                profilePic.src = config.profilePic;
-                
-                // Try to load custom image if specified
-                if (config.profilePic && config.profilePic !== 'images/profile-placeholder.jpg') {
-                    const img = new Image();
-                    img.onload = function() {
-                        profilePic.src = config.profilePic;
-                    };
-                    img.onerror = function() {
-                        console.log('Failed to load custom profile image, using default');
-                        profilePic.src = 'images/profile-placeholder.jpg';
-                    };
-                    img.src = config.profilePic;
-                }
+                profilePic.src = config.profilePic || 'images/profile-placeholder.jpg';
             } else {
                 profilePicContainer.style.display = 'none';
             }
         }
-        
-        if (langConfig.personal.name) document.getElementById('footer-name').textContent = langConfig.personal.name;
-        
-        // Update current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        
-        // Social links - only show if they have values and are not '#'
+    }
+
+    function updateSocialLinks(langConfig) {
         const socialLinks = {
             linkedin: document.getElementById('linkedin'),
             github: document.getElementById('github'),
@@ -321,193 +312,148 @@ document.addEventListener('DOMContentLoaded', function() {
 
         Object.entries(langConfig.social).forEach(([platform, url]) => {
             const element = socialLinks[platform];
-            if (element && url && url !== '#') {
-                element.href = url;
-                element.style.display = 'inline-block';
-            } else if (element) {
-                element.style.display = 'none';
+            if (element) {
+                element.style.display = url && url !== '#' ? 'inline-block' : 'none';
+                if (url && url !== '#') element.href = url;
             }
         });
-        
-        // Contact info - using sanitized HTML
+    }
+
+    function updateContactInfo(langConfig) {
         const contactInfo = document.getElementById('contact-info');
-        if (contactInfo) {
-            const contactHTML = [];
-            
-            if (langConfig.contact.email) {
-                contactHTML.push(`
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <p>${sanitizeHTML(langConfig.contact.email)}</p>
-                    </div>
-                `);
-            }
-            
-            if (langConfig.contact.phone) {
-                contactHTML.push(`
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <p>${sanitizeHTML(langConfig.contact.phone)}</p>
-                    </div>
-                `);
-            }
-            
-            if (langConfig.contact.location) {
-                contactHTML.push(`
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <p>${sanitizeHTML(langConfig.contact.location)}</p>
-                    </div>
-                `);
-            }
-            
-            contactInfo.innerHTML = contactHTML.join('');
+        if (!contactInfo) return;
+
+        const contactHTML = [];
+        if (langConfig.contact.email) {
+            contactHTML.push(`<div class="contact-item"><i class="fas fa-envelope"></i><p>${sanitizeHTML(langConfig.contact.email)}</p></div>`);
         }
-        
-        // Education - using sanitized HTML
+        if (langConfig.contact.phone) {
+            contactHTML.push(`<div class="contact-item"><i class="fas fa-phone"></i><p>${sanitizeHTML(langConfig.contact.phone)}</p></div>`);
+        }
+        if (langConfig.contact.location) {
+            contactHTML.push(`<div class="contact-item"><i class="fas fa-map-marker-alt"></i><p>${sanitizeHTML(langConfig.contact.location)}</p></div>`);
+        }
+        contactInfo.innerHTML = contactHTML.join('');
+    }
+
+    function generateDetailsList(details) {
+        if (!details?.length) return '';
+        const listItems = details.map(detail => `<li>${sanitizeHTML(detail)}</li>`).join('');
+        return `<ul class="education-details">${listItems}</ul>`;
+    }
+
+    function updateEducation(langConfig) {
         const educationList = document.getElementById('education-list');
-        if (educationList) {
-            educationList.innerHTML = '';
-            
-            langConfig.education.forEach(edu => {
-                if (edu.degree || edu.institution) {
-                    const eduItem = document.createElement('div');
-                    eduItem.className = 'education-item';
-                    
-                    let eduHTML = '';
-                    if (edu.institution) eduHTML += `<h3>${sanitizeHTML(edu.institution)}</h3>`;
-                    if (edu.degree) eduHTML += `<p class="degree">${sanitizeHTML(edu.degree)}</p>`;
-                    if (edu.mention) eduHTML += `<p class="mention">Mention : ${sanitizeHTML(edu.mention)}</p>`;
-                    if (edu.period) eduHTML += `<p class="date">${sanitizeHTML(edu.period)}</p>`;
-                    if (edu.details && edu.details.length > 0) {
-                        eduHTML += `<ul class="education-details">
-                            ${edu.details.map(detail => `<li>${sanitizeHTML(detail)}</li>`).join('')}
-                        </ul>`;
-                    }
-                    
-                    eduItem.innerHTML = eduHTML;
-                    educationList.appendChild(eduItem);
-                }
-            });
-        }
-        
-        // Skills - using sanitized HTML
+        if (!educationList) return;
+
+        educationList.innerHTML = langConfig.education.map(edu => `
+            <div class="education-item">
+                ${edu.institution ? `<h3>${sanitizeHTML(edu.institution)}</h3>` : ''}
+                ${edu.degree ? `<p class="degree">${sanitizeHTML(edu.degree)}</p>` : ''}
+                ${edu.mention ? `<p class="mention">Mention : ${sanitizeHTML(edu.mention)}</p>` : ''}
+                ${edu.period ? `<p class="date">${sanitizeHTML(edu.period)}</p>` : ''}
+                ${generateDetailsList(edu.details)}
+            </div>
+        `).join('');
+    }
+
+    function updateSkills(langConfig) {
         const skillsList = document.getElementById('skills-list');
-        if (skillsList) {
-            skillsList.innerHTML = '';
-            
-            Object.entries(langConfig.skills).forEach(([category, skills]) => {
-                if (skills && skills.length > 0) {
-                    const skillCategory = document.createElement('div');
-                    skillCategory.className = 'skill-category';
-                    
-                    skillCategory.innerHTML = `
-                        <h3>${sanitizeHTML(category)}</h3>
-                        <ul class="skills-list">
-                            ${skills.map(skill => `<li>${sanitizeHTML(skill)}</li>`).join('')}
-                        </ul>
-                    `;
-                    
-                    skillsList.appendChild(skillCategory);
-                }
-            });
-        }
-        
-        // Projects - using sanitized HTML
-        const projectsSection = document.getElementById('projects');
+        if (!skillsList) return;
+
+        skillsList.innerHTML = Object.entries(langConfig.skills)
+            .filter(([_, skills]) => skills?.length)
+            .map(([category, skills]) => `
+                <div class="skill-category">
+                    <h3>${sanitizeHTML(category)}</h3>
+                    <ul class="skills-list">${skills.map(skill => `<li>${sanitizeHTML(skill)}</li>`).join('')}</ul>
+                </div>
+            `).join('');
+    }
+
+    function updateProjects(langConfig) {
         const projectsList = document.getElementById('projects-list');
-        
-        if (projectsSection && projectsList) {
-            const hasProjects = langConfig.projects && 
-                              langConfig.projects.length > 0 && 
-                              langConfig.projects.some(project => project.title || project.description);
-            
-            projectsSection.style.display = hasProjects ? 'block' : 'none';
-            
-            if (hasProjects) {
-                projectsList.innerHTML = '';
-                langConfig.projects.forEach(project => {
-                    if (project.title || project.description) {
-                        const projectCard = document.createElement('div');
-                        projectCard.className = 'project-card';
-                        
-                        // Create the image container first
-                        const projectHTML = `
-                            <div class="project-img">
-                                <img src="${project.image && project.image !== '#' ? sanitizeHTML(project.image) : 'images/project-placeholder.jpg'}" 
-                                     alt="${sanitizeHTML(project.title || 'Project')}">
-                            </div>
-                            <div class="project-info">
-                                ${project.title ? `<h3>${sanitizeHTML(project.title)}</h3>` : ''}
-                                ${project.description ? `<p>${sanitizeHTML(project.description)}</p>` : ''}
-                                ${(project.demoLink || project.sourceLink) ? `
-                                    <div class="project-links">
-                                        ${project.demoLink && project.demoLink !== '#' ? 
-                                            `<a href="${sanitizeHTML(project.demoLink)}" class="btn">Live Demo</a>` : ''}
-                                        ${project.sourceLink && project.sourceLink !== '#' ? 
-                                            `<a href="${sanitizeHTML(project.sourceLink)}" class="btn">Source Code</a>` : ''}
-                                    </div>
-                                ` : ''}
-                            </div>
-                        `;
-                        
-                        projectCard.innerHTML = projectHTML;
-                        projectsList.appendChild(projectCard);
-                    }
-                });
-            }
-        }
-        
-        // Experience - using sanitized HTML
+        if (!projectsList) return;
+
+        projectsList.innerHTML = langConfig.projects
+            .filter(project => project.title || project.description)
+            .map(project => `
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="${project.image && project.image !== '#' ? sanitizeHTML(project.image) : 'images/project-placeholder.jpg'}" 
+                             alt="${sanitizeHTML(project.title || 'Project')}">
+                    </div>
+                    <div class="project-info">
+                        ${project.title ? `<h3>${sanitizeHTML(project.title)}</h3>` : ''}
+                        ${project.description ? `<p>${sanitizeHTML(project.description)}</p>` : ''}
+                        <div class="project-links">
+                            ${project.demoLink && project.demoLink !== '#' ? 
+                                `<a href="${sanitizeHTML(project.demoLink)}" class="btn">Live Demo</a>` : ''}
+                            ${project.sourceLink && project.sourceLink !== '#' ? 
+                                `<a href="${sanitizeHTML(project.sourceLink)}" class="btn">Source Code</a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+    }
+
+    function updateExperience(langConfig) {
         const experienceList = document.getElementById('experience-list');
-        if (experienceList) {
-            experienceList.innerHTML = '';
-            
-            if (langConfig.experience && langConfig.experience.length > 0) {
-                langConfig.experience.forEach(exp => {
-                    if (exp.title || exp.company) {
-                        const expItem = document.createElement('div');
-                        expItem.className = 'experience-item';
-                        
-                        let expHTML = '';
-                        if (exp.company) expHTML += `<h3>${sanitizeHTML(exp.company)}</h3>`;
-                        if (exp.title) expHTML += `<p class="position">${sanitizeHTML(exp.title)}</p>`;
-                        if (exp.period) expHTML += `<p class="date">${sanitizeHTML(exp.period)}</p>`;
-                        if (exp.details && exp.details.length > 0) {
-                            expHTML += `<ul class="experience-details">
-                                ${exp.details.map(detail => `<li>${sanitizeHTML(detail)}</li>`).join('')}
-                            </ul>`;
-                        }
-                        
-                        expItem.innerHTML = expHTML;
-                        experienceList.appendChild(expItem);
-                    }
-                });
-            }
-        }
-        
-        // Interests - using sanitized HTML
+        if (!experienceList) return;
+
+        experienceList.innerHTML = langConfig.experience
+            .filter(exp => exp.title || exp.company)
+            .map(exp => `
+                <div class="experience-item">
+                    ${exp.company ? `<h3>${sanitizeHTML(exp.company)}</h3>` : ''}
+                    ${exp.title ? `<p class="position">${sanitizeHTML(exp.title)}</p>` : ''}
+                    ${exp.period ? `<p class="date">${sanitizeHTML(exp.period)}</p>` : ''}
+                    ${exp.details?.length ? `
+                        <ul class="experience-details">
+                            ${exp.details.map(detail => `<li>${sanitizeHTML(detail)}</li>`).join('')}
+                        </ul>
+                    ` : ''}
+                </div>
+            `).join('');
+    }
+
+    function updateInterests(langConfig) {
         const interestsList = document.getElementById('interests-list');
-        if (interestsList) {
-            interestsList.innerHTML = '';
-            
-            if (langConfig.interests && langConfig.interests.length > 0) {
-                langConfig.interests.forEach(interest => {
-                    if (interest.title && interest.items && interest.items.length > 0) {
-                        const interestItem = document.createElement('div');
-                        interestItem.className = 'interest-category';
-                        
-                        let interestHTML = `<h3>${sanitizeHTML(interest.title)}</h3>`;
-                        interestHTML += `<ul class="interests-list">
-                            ${interest.items.map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}
-                        </ul>`;
-                        
-                        interestItem.innerHTML = interestHTML;
-                        interestsList.appendChild(interestItem);
-                    }
-                });
-            }
+        if (!interestsList) return;
+
+        interestsList.innerHTML = langConfig.interests
+            ?.filter(interest => interest.title && interest.items?.length)
+            .map(interest => `
+                <div class="interest-category">
+                    <h3>${sanitizeHTML(interest.title)}</h3>
+                    <ul class="interests-list">
+                        ${interest.items.map(item => `<li>${sanitizeHTML(item)}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('') || '';
+    }
+
+    // Main configuration application function
+    function applyConfiguration(config) {
+        const currentLang = localStorage.getItem('portfolio-language') || config.languageSettings.primary;
+        const langConfig = config.content[currentLang];
+        
+        if (!langConfig) {
+            console.error(`No content available for language: ${currentLang}`);
+            return;
         }
+
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        updatePersonalInfo(langConfig);
+        updateProfilePic(config);
+        updateSocialLinks(langConfig);
+        updateContactInfo(langConfig);
+        updateEducation(langConfig);
+        updateSkills(langConfig);
+        updateProjects(langConfig);
+        updateExperience(langConfig);
+        updateInterests(langConfig);
     }
     
     // Language handling
@@ -523,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update all translatable elements
         document.querySelectorAll('[data-translate]').forEach(element => {
             const key = element.getAttribute('data-translate');
-            if (translations[lang] && translations[lang][key]) {
+            if (translations[lang]?.[key]) {
                 element.textContent = translations[lang][key];
             }
         });
@@ -568,15 +514,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Make sure the function is available globally
     window.getLanguageName = getLanguageName;
-
-    // Helper function to get language flag emoji
-    function getLanguageFlag(code) {
-        const flags = {
-            en: "🇬🇧", fr: "🇫🇷", es: "🇪🇸", de: "🇩🇪", it: "🇮🇹",
-            pt: "🇵🇹", ru: "🇷🇺", zh: "🇨🇳", ja: "🇯🇵", ko: "🇰🇷",
-            ar: "🇸🇦", hi: "🇮🇳", bn: "🇧🇩", nl: "🇳🇱", pl: "🇵🇱",
-            tr: "🇹🇷", vi: "🇻🇳", th: "🇹🇭", id: "🇮🇩", el: "🇬🇷"
-        };
-        return flags[code] || "🌐";
-    }
 }); 
