@@ -1,4 +1,4 @@
-# Student Portfolio
+# OpenCV
 
 A modern, responsive, and accessible portfolio website built with HTML, CSS, and JavaScript.
 
