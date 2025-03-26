@@ -44,7 +44,15 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.forEach(link => {
                 const isActive = link.getAttribute('href') === `#${sectionId}`;
                 link.setAttribute('aria-current', isActive ? 'true' : 'false');
-                link.classList.toggle('active', isActive);
+                if (isActive) {
+                    link.style.color = 'var(--hover-color)';
+                }
+            });
+        });
+        
+        section.addEventListener('mouseleave', function() {
+            navLinks.forEach(link => {
+                link.style.color = '';
             });
         });
     });

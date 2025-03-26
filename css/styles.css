@@ -3,10 +3,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color 0.3s ease,
-                color 0.3s ease,
-                border-color 0.3s ease,
-                box-shadow 0.3s ease;
 }
 
 body {
@@ -61,10 +57,20 @@ p { font-size: 1.1rem; }
     padding: 0 15px;
 }
 
+a, button, .section, .nav-links a, .skills-list li, 
+.project-card, .contact-item, .interests-list li,
+.social-links a, .theme-option, .checkbox-label,
+.language-selector, .skip-link {
+    transition: transform 0.3s ease, 
+                background-color 0.3s ease,
+                color 0.3s ease, 
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+}
+
 a {
     text-decoration: none;
     color: var(--primary-color);
-    transition: color 0.3s;
 }
 
 a:hover {
@@ -139,7 +145,6 @@ header {
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.2);
     color: #ffffff;
-    transition: transform 0.3s, background-color 0.3s;
     margin: 0 5px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     line-height: 1;
@@ -162,7 +167,7 @@ header {
 
 /* Navigation Styles */
 .main-nav {
-    background-color: var(--secondary-color);
+    background-color: var(--nav-bg);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -197,17 +202,40 @@ header {
     position: relative;
     padding: 12px 15px;
     color: #ffffff;
-    font-weight: 600; /* Increased font weight for better visibility */
-    transition: background-color 0.3s, color 0.3s;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    font-weight: 700;
+    text-shadow: none;
     white-space: nowrap;
     display: block;
-    font-size: 1.1rem; /* Increased font size */
+    font-size: 1.1rem;
+}
+
+/* Specific theme rule for Light theme */
+[data-theme="light"] .nav-links a {
+    color: #000000;
+    text-shadow: none;
+    font-weight: 700;
 }
 
 .nav-links a:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
+    color: var(--hover-color);
+    text-shadow: none;
+}
+
+.nav-links a[aria-current="true"] {
+    text-decoration: underline;
+    color: var(--hover-color);
+    font-weight: 700;
+    background-color: transparent;
+}
+
+[data-theme="light"] .nav-links a[aria-current="true"] {
+    color: var(--hover-color);
+    background-color: transparent;
+}
+
+/* Fix for conflict between aria-current and hover states */
+.nav-links a[aria-current="true"]:hover {
+    color: var(--hover-color);
 }
 
 .nav-controls {
@@ -227,7 +255,6 @@ main {
     background-color: var(--card-bg);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
     z-index: 1;
 }
@@ -320,7 +347,6 @@ main {
     display: inline-block;
     margin-right: 10px;
     font-size: 0.9rem;
-    transition: background-color 0.3s, transform 0.3s;
 }
 
 .skills-list li:hover {
@@ -341,7 +367,6 @@ main {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s;
 }
 
 .project-card:hover {
@@ -393,7 +418,6 @@ main {
     border-radius: 6px;
     font-size: 1.1rem;
     font-weight: 600;
-    transition: all 0.3s ease;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -451,7 +475,6 @@ main {
     padding: 15px;
     background-color: var(--accent-bg);
     border-radius: 8px;
-    transition: transform 0.3s, box-shadow 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -570,7 +593,6 @@ footer {
     padding: 10px 15px;
     cursor: pointer;
     border-radius: 8px;
-    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -762,7 +784,6 @@ footer {
     color: var(--text-color);
     cursor: pointer;
     min-width: 120px;
-    transition: border-color 0.3s ease;
 }
 
 .language-selector:focus {
@@ -821,7 +842,6 @@ footer {
     border: 1px solid #ddd;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .checkbox-label:hover {
@@ -878,7 +898,6 @@ footer {
     border-radius: 20px;
     display: inline-block;
     font-size: 0.9rem;
-    transition: background-color 0.3s, transform 0.3s;
 }
 
 .interests-list li:hover {
@@ -1012,12 +1031,6 @@ footer {
 
 [role="listitem"] {
     margin-bottom: 1rem;
-}
-
-/* Active Section Styles */
-.nav-links a[aria-current="true"] {
-    color: var(--primary-color);
-    font-weight: bold;
 }
 
 /* Form Accessibility */

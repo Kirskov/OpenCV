@@ -10,7 +10,7 @@
     --nav-bg: #845ef7;
     --card-bg: #ffffff;
     --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    --hover-color: #fa5252;
+    --hover-color: #ffca3a;
     --heading-color: #2d3436;
     --accent-bg: #f8f9fa;
     --border-color: #e2e8f0;
@@ -30,7 +30,7 @@
     --nav-bg: #1a1b1e;
     --card-bg: #2d2e32;
     --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    --hover-color: #7950f2;
+    --hover-color: #ff9400;
     --heading-color: #ffffff;
     --accent-bg: #2d2e32;
     --border-color: #3d3e42;
@@ -50,7 +50,7 @@
     --nav-bg: #ffffff;
     --card-bg: #ffffff;
     --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    --hover-color: #3b5bdb;
+    --hover-color: #e03131;
     --heading-color: #212529;
     --accent-bg: #f8f9fa;
     --border-color: #e2e8f0;
@@ -70,7 +70,7 @@
     --nav-bg: #0c8599;
     --card-bg: #ffffff;
     --card-shadow: 0 2px 4px rgba(12, 133, 153, 0.1);
-    --hover-color: #66d9e8;
+    --hover-color: #ffca3a;
     --heading-color: #0c8599;
     --accent-bg: #e3fafc;
     --border-color: #c5f6fa;
@@ -90,7 +90,7 @@
     --nav-bg: #2b8a3e;
     --card-bg: #ffffff;
     --card-shadow: 0 2px 4px rgba(43, 138, 62, 0.1);
-    --hover-color: #2f9e44;
+    --hover-color: #ff9f1c;
     --heading-color: #2b8a3e;
     --accent-bg: #ebfbee;
     --border-color: #d3f9d8;
@@ -110,7 +110,7 @@
     --nav-bg: #e8590c;
     --card-bg: #ffffff;
     --card-shadow: 0 2px 4px rgba(232, 89, 12, 0.1);
-    --hover-color: #ffa94d;
+    --hover-color: #0350ca;
     --heading-color: #e8590c;
     --accent-bg: #fff4e6;
     --border-color: #ffe8cc;
@@ -130,7 +130,7 @@
     --nav-bg: #4c566a;
     --card-bg: #ffffff;
     --card-shadow: 0 2px 4px rgba(76, 86, 106, 0.1);
-    --hover-color: #81a1c1;
+    --hover-color: #ebcb8b;
     --heading-color: #4c566a;
     --accent-bg: #eceff4;
     --border-color: #d8dee9;
@@ -150,7 +150,7 @@
     --nav-bg: #2c3e50;
     --card-bg: #34495e;
     --card-shadow: 0 2px 4px rgba(241, 196, 15, 0.2);
-    --hover-color: #f39c12;
+    --hover-color: #1abc9c;
     --heading-color: #f1c40f;
     --accent-bg: #34495e;
     --border-color: #2c3e50;
@@ -170,7 +170,7 @@
     --nav-bg: #ffeaa7;
     --card-bg: #ffffff;
     --card-shadow: 0 2px 4px rgba(250, 177, 160, 0.1);
-    --hover-color: #ff7675;
+    --hover-color: #6c5ce7;
     --heading-color: #2d3436;
     --accent-bg: #fff5f5;
     --border-color: #ffe3e3;
@@ -190,7 +190,7 @@
     --nav-bg: #636e72;
     --card-bg: #ffffff;
     --card-shadow: 0 2px 4px rgba(45, 52, 54, 0.1);
-    --hover-color: #2d3436;
+    --hover-color: #ff9400;
     --heading-color: #2d3436;
     --accent-bg: #f5f5f5;
     --border-color: #dfe6e9;
