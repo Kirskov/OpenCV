@@ -133,9 +133,14 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="js/themes.js"></script>
-    <script src="js/translations.js"></script>
+    <!-- Load configuration and translations first -->
     <script src="js/config.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/translations.js"></script>
+    
+    <!-- Load other non-module scripts -->
+    <script src="fontawesome-free-web/js/all.min.js"></script>
+    
+    <!-- Load modular scripts -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html> 
