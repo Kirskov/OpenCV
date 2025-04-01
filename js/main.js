@@ -182,6 +182,45 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Failed to load Font Awesome');
         });
     }
+
+    // Add menu toggle button to the DOM
+    const nav = document.querySelector('.main-nav');
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    menuToggle.setAttribute('aria-label', 'Toggle menu');
+    nav.prepend(menuToggle);
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'menu-overlay';
+    document.body.appendChild(overlay);
+
+    // Menu toggle functionality
+    const navContent = document.querySelector('.nav-content');
+    menuToggle.addEventListener('click', function() {
+        navContent.classList.toggle('active');
+        overlay.classList.toggle('active');
+        menuToggle.innerHTML = navContent.classList.contains('active') ? 
+            '<i class="fas fa-times"></i>' : 
+            '<i class="fas fa-bars"></i>';
+    });
+
+    // Close menu when clicking overlay
+    overlay.addEventListener('click', function() {
+        navContent.classList.remove('active');
+        overlay.classList.remove('active');
+        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+            navContent.classList.remove('active');
+            overlay.classList.remove('active');
+            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+    });
 });
 
 // Announce changes to screen readers
