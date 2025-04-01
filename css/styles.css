@@ -669,9 +669,9 @@ footer {
 }
 
 .theme-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -686,15 +686,16 @@ footer {
 .theme-option {
     padding: 10px 15px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     gap: 10px;
     color: var(--text-color);
+    transition: all 0.2s ease;
 }
 
 .theme-option:hover {
-    background: var(--section-bg);
+    background-color: var(--section-bg);
     transform: translateX(5px);
 }
 
@@ -713,57 +714,13 @@ footer {
     border-radius: 3px;
 }
 
-/* Responsive Theme Selector */
+/* Responsive Theme Menu */
 @media (max-width: 768px) {
-    #theme-toggle {
-        bottom: 10px;
-        right: 10px;
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-
     .theme-menu {
-        position: fixed;
-        top: auto;
-        bottom: 60px;
-        right: 10px;
+        bottom: 75px;
+        right: 20px;
         max-height: 60vh;
         width: 180px;
-    }
-
-    .nav-content {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 10px;
-    }
-
-    .nav-links {
-        flex-direction: column;
-        width: 100%;
-        margin: 10px 0;
-        background-color: var(--nav-bg);
-        border-radius: 8px;
-        padding: 5px;
-        max-height: calc(100vh - 120px);
-        overflow-y: auto;
-    }
-
-    .nav-links a {
-        padding: 12px;
-        border-radius: 6px;
-        margin: 2px 0;
-    }
-
-    .nav-controls {
-        width: 100%;
-        justify-content: flex-end;
-        padding: 5px 0;
-    }
-
-    .main-nav {
-        height: auto;
-        min-height: 60px;
     }
 }
 
