@@ -576,16 +576,17 @@ footer {
 }
 
 .theme-menu {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 10px;
-    box-shadow: var(--card-shadow);
-    z-index: 999;
-    max-height: 400px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    max-height: 300px;
     overflow-y: auto;
+    z-index: 1000;
     width: 200px;
 }
 
@@ -630,26 +631,66 @@ footer {
     }
 
     .theme-menu {
+        position: fixed;
+        top: auto;
         bottom: 60px;
         right: 10px;
+        max-height: 60vh;
         width: 180px;
     }
 
     .nav-content {
         flex-direction: column;
-        gap: 10px;
+        align-items: flex-start;
+        padding: 10px;
     }
 
     .nav-links {
+        flex-direction: column;
         width: 100%;
-        margin-right: 0;
-        justify-content: center;
+        margin: 10px 0;
+        background-color: var(--nav-bg);
+        border-radius: 8px;
+        padding: 5px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
     }
 
     .nav-links a {
-        padding: 10px 12px;
-        font-size: 0.9em;
+        padding: 12px;
+        border-radius: 6px;
+        margin: 2px 0;
     }
+
+    .nav-controls {
+        width: 100%;
+        justify-content: flex-end;
+        padding: 5px 0;
+    }
+
+    .main-nav {
+        height: auto;
+        min-height: 60px;
+    }
+}
+
+/* Add smooth scrolling for the navigation menu */
+.nav-links {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) transparent;
+}
+
+.nav-links::-webkit-scrollbar {
+    width: 6px;
+}
+
+.nav-links::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.nav-links::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 3px;
 }
 
 /* Configuration Panel */
