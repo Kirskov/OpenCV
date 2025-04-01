@@ -183,43 +183,93 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add menu toggle button to the DOM
-    const nav = document.querySelector('.main-nav');
-    const menuToggle = document.createElement('button');
-    menuToggle.className = 'menu-toggle';
-    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    menuToggle.setAttribute('aria-label', 'Toggle menu');
-    nav.prepend(menuToggle);
+    // Add menu toggle button to the DOM only on mobile
+    function initMobileMenu() {
+        if (window.innerWidth <= 768) {
+            const nav = document.querySelector('.main-nav');
+            if (!document.querySelector('.menu-toggle')) {
+                const menuToggle = document.createElement('button');
+                menuToggle.className = 'menu-toggle';
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                menuToggle.setAttribute('aria-label', 'Toggle menu');
+                nav.prepend(menuToggle);
 
-    // Create overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'menu-overlay';
-    document.body.appendChild(overlay);
+                // Create overlay if it doesn't exist
+                if (!document.querySelector('.menu-overlay')) {
+                    const overlay = document.createElement('div');
+                    overlay.className = 'menu-overlay';
+                    document.body.appendChild(overlay);
+                }
 
-    // Menu toggle functionality
-    const navContent = document.querySelector('.nav-content');
-    menuToggle.addEventListener('click', function() {
-        navContent.classList.toggle('active');
-        overlay.classList.toggle('active');
-        menuToggle.innerHTML = navContent.classList.contains('active') ? 
-            '<i class="fas fa-times"></i>' : 
-            '<i class="fas fa-bars"></i>';
-    });
+                // Menu toggle functionality
+                const navContent = document.querySelector('.nav-content');
+                menuToggle.addEventListener('click', function() {
+                    navContent.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    menuToggle.innerHTML = navContent.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : 
+                        '<i class="fas fa-bars"></i>';
+                });
 
-    // Close menu when clicking overlay
-    overlay.addEventListener('click', function() {
-        navContent.classList.remove('active');
-        overlay.classList.remove('active');
-        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-    });
+                // Close menu when clicking overlay
+                overlay.addEventListener('click', function() {
+                    navContent.classList.remove('active');
+                    overlay.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                });
 
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', function() {
-            navContent.classList.remove('active');
-            overlay.classList.remove('active');
-            menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        });
+                // Close menu when clicking a link
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        
+                        // First close the menu
+                        navContent.classList.remove('active');
+                        overlay.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                        
+                        // Then scroll to the section after a small delay
+                        setTimeout(() => {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                                // Update focus for keyboard users
+                                targetElement.setAttribute('tabindex', '-1');
+                                targetElement.focus();
+                                targetElement.removeAttribute('tabindex');
+                            }
+                        }, 300);
+                    });
+                });
+            }
+        } else {
+            // Remove mobile menu elements if screen is larger than mobile
+            const menuToggle = document.querySelector('.menu-toggle');
+            const overlay = document.querySelector('.menu-overlay');
+            if (menuToggle) menuToggle.remove();
+            if (overlay) overlay.remove();
+            
+            // Reset any mobile menu states
+            const navContent = document.querySelector('.nav-content');
+            if (navContent) {
+                navContent.classList.remove('active');
+                navContent.style.left = '';
+            }
+        }
+    }
+
+    // Initialize mobile menu
+    initMobileMenu();
+
+    // Update mobile menu on resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(initMobileMenu, 250);
     });
 });
 
