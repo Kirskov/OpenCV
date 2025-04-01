@@ -551,6 +551,45 @@ footer {
         height: 45px !important;
         padding: 10px !important;
     }
+
+    .nav-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+        max-width: 250px; /* Limit the width of the menu container */
+        margin: 0 auto; /* Center the menu */
+    }
+
+    .nav-links {
+        flex-direction: column;
+        width: 100%;
+        margin: 10px 0;
+        background-color: var(--nav-bg);
+        border-radius: 8px;
+        padding: 5px;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+    }
+
+    .nav-links a {
+        padding: 10px 15px;
+        border-radius: 6px;
+        margin: 2px 0;
+        text-align: center;
+        font-size: 1rem;
+        white-space: normal; /* Allow text to wrap */
+    }
+
+    .main-nav {
+        height: auto;
+        min-height: 60px;
+        padding: 5px;
+    }
+
+    .container {
+        width: 95%; /* Slightly reduce container width on mobile */
+        padding: 0 10px;
+    }
 }
 
 .theme-tooltip {
