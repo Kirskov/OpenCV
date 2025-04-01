@@ -1,3 +1,19 @@
+// Register service worker for offline support
+if ('serviceWorker' in navigator && 
+    (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(err => {
+                console.error('ServiceWorker registration failed: ', err);
+            });
+    });
+} else {
+    console.log('Service Worker is not supported or protocol is not https/localhost');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Update current year in the footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -187,6 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function initMobileMenu() {
         if (window.innerWidth <= 768) {
             const nav = document.querySelector('.main-nav');
+            let overlay;
+            
             if (!document.querySelector('.menu-toggle')) {
                 const menuToggle = document.createElement('button');
                 menuToggle.className = 'menu-toggle';
@@ -196,9 +214,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Create overlay if it doesn't exist
                 if (!document.querySelector('.menu-overlay')) {
-                    const overlay = document.createElement('div');
+                    overlay = document.createElement('div');
                     overlay.className = 'menu-overlay';
                     document.body.appendChild(overlay);
+                } else {
+                    overlay = document.querySelector('.menu-overlay');
                 }
 
                 // Menu toggle functionality
@@ -270,6 +290,26 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(initMobileMenu, 250);
+    });
+
+    // Back to top functionality
+    const backToTopButton = document.querySelector('.back-to-top');
+    
+    // Show button when scrolling down
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+
+    // Smooth scroll to top
+    backToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 });
 

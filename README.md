@@ -6,12 +6,12 @@ A modern, responsive, and accessible portfolio website built with HTML, CSS, and
 
 ## Features
 
-- 🌐 Multi-language support (English and French)
-- 🎨 Multiple theme options with a theme toggle
-- 📱 Fully responsive design
-- ♿ Accessibility features (ARIA labels, keyboard navigation, screen reader support)
+- 🌐 Dynamic multi-language support with user-configurable languages
+- 🎨 Multiple theme options with an intuitive theme picker
+- 📱 Fully responsive design with improved mobile navigation
+- ♿ Comprehensive accessibility features
 - 🔄 Dynamic content loading
-- 🌙 Dark/Light mode toggle
+- 🌙 Theme system with 10 beautiful themes
 - 🔍 SEO-friendly
 - 📊 Sections for:
   - About Me
@@ -22,6 +22,15 @@ A modern, responsive, and accessible portfolio website built with HTML, CSS, and
   - Interests
   - Contact
 
+## Mobile Features
+
+- 📱 Sliding menu for better mobile navigation
+- 🔄 Smooth transitions and animations
+- 👆 Touch-friendly interface
+- 🎯 Easy-to-tap buttons and links
+- 📐 Optimized spacing for mobile screens
+- 🎨 Theme picker optimized for mobile
+
 ## Getting Started
 
 1. Clone the repository
@@ -31,6 +40,61 @@ A modern, responsive, and accessible portfolio website built with HTML, CSS, and
    - `js/translations.js` for language translations
    - `css/styles.css` for styling customization
    - `css/themes.css` for theme customization
+
+## Language Support
+
+The portfolio supports dynamic language configuration:
+
+1. Languages are configured through the configuration panel
+2. Users can add new languages and translations
+3. All UI elements support translation
+4. Language settings persist across sessions
+5. Easy addition of new languages without code changes
+
+### Adding a New Language
+
+1. Open the configuration panel
+2. Navigate to Language Settings
+3. Add your new language
+4. Provide translations for all content
+5. Save your changes
+
+The system will automatically:
+- Add the language to the language picker
+- Create necessary translation entries
+- Update the UI to support the new language
+
+## Themes
+
+Available themes:
+- Default (Pink/Purple)
+- Modern Dark
+- Light Minimalist
+- Ocean
+- Forest
+- Sunset
+- Nordic
+- Cyberpunk
+- Pastel
+- Monochrome
+
+Each theme includes:
+- Consistent color scheme
+- Dark/light variants
+- Mobile-optimized styles
+- Accessible contrast ratios
+- Smooth transitions
+
+## Mobile Navigation
+
+The mobile navigation system features:
+- Hamburger menu for space efficiency
+- Sliding drawer navigation
+- Touch-friendly tap targets
+- Smooth animations
+- Overlay background
+- Easy section access
+- Proper spacing and contrast
 
 ## Detailed Configuration Guide
 
@@ -177,174 +241,4 @@ The portfolio supports multiple languages. Currently implemented:
 - English (en)
 - French (fr)
 
-To modify translations, edit `js/translations.js`.
-
-### Themes
-
-Available themes:
-- Default
-- Dark
-- Light
-- Ocean
-- Forest
-- Sunset
-- Nordic
-- Cyberpunk
-- Pastel
-- Monochrome
-
-## File Structure
-
-```
-portfolio/
-├── css/
-│   ├── styles.css
-│   └── themes.css
-├── js/
-│   ├── config.js
-│   ├── main.js
-│   ├── themes.js
-│   └── translations.js
-├── images/
-├── index.html
-└── README.md
-```
-
-## Accessibility Features
-
-The portfolio is built with accessibility as a priority, implementing WCAG 2.1 guidelines to ensure the website is usable by everyone.
-
-### Screen Reader Support
-- Semantic HTML structure for better content navigation
-- ARIA labels and roles for interactive elements
-- Descriptive alt text for images
-- Meaningful heading hierarchy (h1-h6)
-- Language declaration for proper pronunciation
-- Hidden descriptive text for icons and visual elements
-
-### Keyboard Navigation
-- Logical tab order through elements
-- Visible focus indicators on all interactive elements
-- Skip to main content link for quick navigation
-- Keyboard-accessible dropdown menus
-- Keyboard shortcuts for common actions:
-  - `Alt + L`: Change language
-  - `Alt + T`: Toggle theme
-  - `Esc`: Close modals or dropdowns
-
-### Visual Accessibility
-- High contrast mode support
-- Configurable color themes
-- Minimum contrast ratio of 4.5:1 for text
-- Text zoom support up to 200%
-- No content overlap when zooming
-- Consistent spacing and layout
-
-### Motion and Animation
-- Reduced motion support via `prefers-reduced-motion`
-- Optional animations that don't interfere with reading
-- No autoplay content
-- Pausable carousels and slideshows
-
-### Form and Input Accessibility
-- Clear input labels and instructions
-- Error messages that are easy to understand
-- Form validation feedback
-- Large clickable areas for buttons
-- Input fields with sufficient spacing
-
-### Technical Implementation
-
-#### ARIA Labels and Roles
-```html
-<!-- Example of ARIA implementation -->
-<button 
-  aria-label="Toggle theme" 
-  role="switch" 
-  aria-checked="false"
->
-  <span class="visually-hidden">Switch to dark theme</span>
-  <i class="icon-theme"></i>
-</button>
-```
-
-#### Skip Link Implementation
-```html
-<a 
-  href="#main-content" 
-  class="skip-link"
-  aria-label="Skip to main content"
->
-  Skip to main content
-</a>
-```
-
-#### Focus Management
-```css
-/* Visible focus indicators */
-:focus {
-  outline: 3px solid #4A90E2;
-  outline-offset: 2px;
-}
-
-/* Focus visible only for keyboard users */
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-:focus-visible {
-  outline: 3px solid #4A90E2;
-  outline-offset: 2px;
-}
-```
-
-#### High Contrast Support
-```css
-@media (forced-colors: active) {
-  /* High contrast mode adjustments */
-  .button {
-    border: 2px solid ButtonText;
-    background: ButtonFace;
-    color: ButtonText;
-  }
-}
-```
-
-#### Reduced Motion
-```css
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-```
-
-### Testing and Validation
-- Regular testing with screen readers (NVDA, VoiceOver, JAWS)
-- Keyboard navigation testing
-- Color contrast validation
-- HTML validation for proper semantics
-- Automated accessibility testing tools integration
-- Manual testing with users who rely on assistive technologies
-
-### Resources
-- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [WAI-ARIA Practices](https://www.w3.org/WAI/ARIA/apg/)
-- [A11y Project Checklist](https://www.a11yproject.com/checklist/)
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Opera (latest)
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## Contributing
-
-Feel free to submit issues and enhancement requests!
+To modify translations, edit `
