@@ -14,39 +14,55 @@ if ('serviceWorker' in navigator &&
     console.log('Service Worker is not supported or protocol is not https/localhost');
 }
 
-// Initialize language selector
-function initLanguageSelector() {
-    const languageSelector = document.getElementById('language-selector');
-    if (!languageSelector) return;
+// Initialize language selectors
+function initLanguageSelectors() {
+    const desktopSelector = document.getElementById('language-selector-desktop');
+    const mobileSelector = document.getElementById('language-selector-mobile');
+    
+    if (!desktopSelector || !mobileSelector) return;
 
     // Clear existing options
-    languageSelector.innerHTML = '';
+    desktopSelector.innerHTML = '';
+    mobileSelector.innerHTML = '';
 
-    // Add available languages
-    const languages = {
-        'en': 'English',
-        'fr': 'French',
-        'es': 'Spanish',
-        'de': 'German',
-        // Add more languages as needed
-    };
+    // Add options based on available translations
+    Object.keys(translations).forEach(langCode => {
+        const langName = translations[langCode].language_name || langCode;
+        
+        // Create desktop option
+        const desktopOption = document.createElement('option');
+        desktopOption.value = langCode;
+        desktopOption.textContent = langName;
+        desktopSelector.appendChild(desktopOption);
 
-    Object.entries(languages).forEach(([code, name]) => {
-        const option = document.createElement('option');
-        option.value = code;
-        option.textContent = name;
-        languageSelector.appendChild(option);
+        // Create mobile option
+        const mobileOption = document.createElement('option');
+        mobileOption.value = langCode;
+        mobileOption.textContent = langName;
+        mobileSelector.appendChild(mobileOption);
     });
 
-    // Set initial value
+    // Set initial value from localStorage
     const currentLang = localStorage.getItem('preferred-language') || 'en';
-    languageSelector.value = currentLang;
+    desktopSelector.value = currentLang;
+    mobileSelector.value = currentLang;
 
-    // Handle language change
-    languageSelector.addEventListener('change', function(e) {
-        const selectedLang = e.target.value;
-        localStorage.setItem('preferred-language', selectedLang);
-        updateTranslations(selectedLang);
+    // Sync both selectors and update translations
+    function updateLanguage(lang) {
+        desktopSelector.value = lang;
+        mobileSelector.value = lang;
+        localStorage.setItem('preferred-language', lang);
+        updateTranslations(lang);
+    }
+
+    // Handle language change on desktop
+    desktopSelector.addEventListener('change', function(e) {
+        updateLanguage(e.target.value);
+    });
+
+    // Handle language change on mobile
+    mobileSelector.addEventListener('change', function(e) {
+        updateLanguage(e.target.value);
     });
 }
 
@@ -54,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update current year in the footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
-    initLanguageSelector();
+    initLanguageSelectors();
 
     // Handle navigation active states
     const sections = document.querySelectorAll('.section');
