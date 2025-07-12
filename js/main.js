@@ -14,40 +14,47 @@ if ('serviceWorker' in navigator &&
     console.log('Service Worker is not supported or protocol is not https/localhost');
 }
 
+// Initialize language selector
+function initLanguageSelector() {
+    const languageSelector = document.getElementById('language-selector');
+    if (!languageSelector) return;
+
+    // Clear existing options
+    languageSelector.innerHTML = '';
+
+    // Add available languages
+    const languages = {
+        'en': 'English',
+        'fr': 'French',
+        'es': 'Spanish',
+        'de': 'German',
+        // Add more languages as needed
+    };
+
+    Object.entries(languages).forEach(([code, name]) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = name;
+        languageSelector.appendChild(option);
+    });
+
+    // Set initial value
+    const currentLang = localStorage.getItem('preferred-language') || 'en';
+    languageSelector.value = currentLang;
+
+    // Handle language change
+    languageSelector.addEventListener('change', function(e) {
+        const selectedLang = e.target.value;
+        localStorage.setItem('preferred-language', selectedLang);
+        updateTranslations(selectedLang);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Update current year in the footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
-    // Language selector handling
-    const languageSelector = document.getElementById('language-selector');
-    if (languageSelector) {
-        // Clear any existing options
-        languageSelector.innerHTML = '';
-        
-        // Populate language selector with all available languages from translations
-        Object.entries(translations).forEach(([code]) => {
-            const option = document.createElement('option');
-            option.value = code;
-            option.textContent = getLanguageName(code);
-            languageSelector.appendChild(option);
-        });
-
-        // Set initial language
-        const currentLang = document.documentElement.lang || 'en';
-        languageSelector.value = currentLang;
-        updateTranslations(currentLang);
-
-        // Handle language changes
-        languageSelector.addEventListener('change', function() {
-            const selectedLang = this.value;
-            document.documentElement.lang = selectedLang;
-            updateTranslations(selectedLang);
-            
-            // Announce language change to screen readers
-            const langName = getLanguageName(selectedLang);
-            announceToScreenReader(`Language changed to ${langName}`);
-        });
-    }
+    initLanguageSelector();
 
     // Handle navigation active states
     const sections = document.querySelectorAll('.section');

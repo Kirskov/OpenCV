@@ -795,17 +795,22 @@ footer {
 /* Language Selector Styles */
 .language-selector-container {
     position: relative;
+    margin-left: 10px;
 }
 
 .language-selector {
-    padding: 8px 12px;
-    font-size: 1rem;
-    border: 2px solid var(--border-color);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    background-color: var(--bg-color);
+    padding: 8px 30px 8px 12px;
+    font-size: 0.9rem;
     color: var(--text-color);
     cursor: pointer;
-    min-width: 120px;
+    min-width: 120px; /* Minimum width to accommodate longer languages */
+    width: auto; /* Allow growing based on content */
 }
 
 .language-selector:focus {
@@ -1141,7 +1146,7 @@ div[id] {
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
-    bottom: 20px;
+    bottom: 80px; /* Adjust position */
     right: 20px;
     background-color: var(--primary-color);
     color: #ffffff;
@@ -1157,7 +1162,7 @@ div[id] {
     transition: all 0.3s ease;
     border: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 999;
+    z-index: 998;
 }
 
 .back-to-top.visible {
@@ -1172,7 +1177,7 @@ div[id] {
 
 @media (max-width: 768px) {
     .back-to-top {
-        bottom: 70px; /* Adjust for mobile to avoid overlapping with other elements */
+        bottom: 60px; /* Adjust for mobile */
         right: 15px;
         width: 40px;
         height: 40px;
