@@ -203,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function initMobileMenu() {
         if (window.innerWidth <= 768) {
             const nav = document.querySelector('.main-nav');
-            let overlay;
             
             if (!document.querySelector('.menu-toggle')) {
                 const menuToggle = document.createElement('button');
@@ -212,30 +211,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 menuToggle.setAttribute('aria-label', 'Toggle menu');
                 nav.prepend(menuToggle);
 
-                // Create overlay if it doesn't exist
-                if (!document.querySelector('.menu-overlay')) {
-                    overlay = document.createElement('div');
-                    overlay.className = 'menu-overlay';
-                    document.body.appendChild(overlay);
-                } else {
-                    overlay = document.querySelector('.menu-overlay');
-                }
-
                 // Menu toggle functionality
                 const navContent = document.querySelector('.nav-content');
                 menuToggle.addEventListener('click', function() {
                     navContent.classList.toggle('active');
-                    overlay.classList.toggle('active');
                     menuToggle.innerHTML = navContent.classList.contains('active') ? 
                         '<i class="fas fa-times"></i>' : 
                         '<i class="fas fa-bars"></i>';
                 });
 
-                // Close menu when clicking overlay
-                overlay.addEventListener('click', function() {
-                    navContent.classList.remove('active');
-                    overlay.classList.remove('active');
-                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!nav.contains(e.target) && navContent.classList.contains('active')) {
+                        navContent.classList.remove('active');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
                 });
 
                 // Close menu when clicking a link
@@ -246,7 +236,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // First close the menu
                         navContent.classList.remove('active');
-                        overlay.classList.remove('active');
                         menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                         
                         // Then scroll to the section after a small delay
@@ -269,9 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             // Remove mobile menu elements if screen is larger than mobile
             const menuToggle = document.querySelector('.menu-toggle');
-            const overlay = document.querySelector('.menu-overlay');
             if (menuToggle) menuToggle.remove();
-            if (overlay) overlay.remove();
             
             // Reset any mobile menu states
             const navContent = document.querySelector('.nav-content');
