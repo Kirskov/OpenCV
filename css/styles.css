@@ -1138,7 +1138,60 @@ div[id] {
     }
 }
 
-/* Navigation Styles */
+/* Back to Top Button */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 70px; /* Adjust for mobile to avoid overlapping with other elements */
+        right: 15px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Ensure proper contrast in all themes */
+[data-theme] .back-to-top {
+    color: #ffffff !important;
+}
+
+/* Add reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+        transition: none;
+    }
+} 
+
+/* Base styles */
 .menu-toggle {
     display: none; /* Hide by default on desktop */
 }
@@ -1147,6 +1200,7 @@ div[id] {
     display: none; /* Hide by default */
 }
 
+/* Mobile styles */
 @media (max-width: 768px) {
     .menu-toggle {
         display: block; /* Show only on mobile */
@@ -1222,11 +1276,6 @@ div[id] {
         box-shadow: none;
     }
 
-    /* Ensure main content is not hidden */
-    main {
-        padding-top: 60px;
-    }
-
     /* Menu overlay */
     .menu-overlay {
         display: none;
@@ -1235,65 +1284,23 @@ div[id] {
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.3) !important; /* More transparent and forced */
+        backdrop-filter: blur(2px); /* Slight blur effect */
+        -webkit-backdrop-filter: blur(2px);
         z-index: 1000;
+        opacity: 0;
         transition: opacity 0.3s ease;
+        pointer-events: none;
     }
 
     .menu-overlay.active {
         display: block;
+        opacity: 1;
+        pointer-events: auto;
     }
-}
 
-/* Back to Top Button */
-.back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--primary-color);
-    color: #ffffff;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    border: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 999;
-}
-
-.back-to-top.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.back-to-top:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-3px);
-}
-
-@media (max-width: 768px) {
-    .back-to-top {
-        bottom: 70px; /* Adjust for mobile to avoid overlapping with other elements */
-        right: 15px;
-        width: 40px;
-        height: 40px;
-    }
-}
-
-/* Ensure proper contrast in all themes */
-[data-theme] .back-to-top {
-    color: #ffffff !important;
-}
-
-/* Add reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-    .back-to-top {
-        transition: none;
+    /* Ensure main content is not hidden */
+    main {
+        padding-top: 60px;
     }
 } 
