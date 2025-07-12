@@ -1191,30 +1191,28 @@ div[id] {
     }
 } 
 
-/* Base styles */
+/* Mobile Navigation */
 .menu-toggle {
-    display: none; /* Hide by default on desktop */
+    display: none;
 }
 
 .menu-overlay {
-    display: none; /* Hide by default */
+    display: none;
 }
 
-/* Mobile styles */
 @media (max-width: 768px) {
     .menu-toggle {
-        display: block; /* Show only on mobile */
+        display: block;
         position: fixed;
         top: 15px;
         left: 15px;
         z-index: 1002;
         background: var(--primary-color);
-        border: 2px solid var(--border-color);
+        border: none;
         border-radius: 4px;
         padding: 8px 12px;
         color: #ffffff;
         cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .nav-content {
@@ -1228,7 +1226,6 @@ div[id] {
         transition: left 0.3s ease;
         z-index: 1001;
         overflow-y: auto;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .nav-content.active {
@@ -1247,23 +1244,20 @@ div[id] {
         margin: 2px 0;
         text-align: left;
         font-size: 1rem;
-        color: var(--text-color) !important;
+        color: var(--text-color);
         background-color: var(--bg-color);
         border: 1px solid var(--border-color);
-        transition: all 0.3s ease;
     }
 
     .nav-links a:hover,
     .nav-links a:focus {
         background-color: var(--primary-color);
-        color: #ffffff !important;
-        border-color: var(--primary-color);
+        color: #ffffff;
     }
 
     .nav-links a[aria-current="true"] {
         background-color: var(--primary-color);
-        color: #ffffff !important;
-        border-color: var(--primary-color);
+        color: #ffffff;
     }
 
     .nav-controls {
@@ -1276,7 +1270,6 @@ div[id] {
         box-shadow: none;
     }
 
-    /* Menu overlay */
     .menu-overlay {
         display: none;
         position: fixed;
@@ -1284,23 +1277,11 @@ div[id] {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.3) !important; /* More transparent and forced */
-        backdrop-filter: blur(2px); /* Slight blur effect */
-        -webkit-backdrop-filter: blur(2px);
+        background-color: rgba(0, 0, 0, 0.2);
         z-index: 1000;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        pointer-events: none;
     }
 
     .menu-overlay.active {
         display: block;
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    /* Ensure main content is not hidden */
-    main {
-        padding-top: 60px;
     }
 } 
